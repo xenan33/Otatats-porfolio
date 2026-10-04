@@ -31,6 +31,7 @@ insert into portfolio.skills (name, category, proficiency_label, sort_order) val
   ('PowerShell',                             'Automation',        'Proficient', 1),
   ('Power Automate',                         'Automation',        'Proficient', 2),
   ('Team Leadership & Mentoring',               'Leadership',        'Proficient', 1),
+  ('IT Operations Management',               'Leadership',        'Proficient', 2),
   ('ConnectWise Manage (Ticketing)',         'Service Desk',      'Proficient', 1),
   ('ConnectWise Automate (RMM)',             'Service Desk',      'Proficient', 2),
   ('Client Support & Escalations',           'Service Desk',      'Expert',     3),
