@@ -15,7 +15,7 @@ export default function Skills({ skills, accent }: { skills: Skill[]; accent: st
   const sorted = [...groups].sort(([a], [b]) => rank(a) - rank(b));
 
   return (
-    <div className="bg-surface">
+    <div className="section-tint">
       <Section
         id="expertise"
         eyebrow="Expertise"
@@ -27,7 +27,7 @@ export default function Skills({ skills, accent }: { skills: Skill[]; accent: st
             <SpotlightCard
               key={category}
               spotlightColor={rgba(accent, 0.1)}
-              className="!rounded-2xl !border-line !bg-white !p-6 shadow-[0_1px_2px_rgba(7,26,51,0.04)]"
+              className="tile !rounded-2xl !p-6"
             >
               <h3 className="font-display text-lg font-semibold text-ink">{category}</h3>
               <ul className="mt-4 divide-y divide-line">

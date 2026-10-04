@@ -12,7 +12,7 @@ export default function Projects({ projects, accent }: { projects: Project[]; ac
           <SpotlightCard
             key={p.id}
             spotlightColor={rgba(accent, 0.1)}
-            className={`!rounded-2xl !border-line !bg-white !p-7 sm:!p-8 ${p.featured ? 'md:col-span-2' : ''}`}
+            className={`tile !rounded-2xl !p-7 sm:!p-8 ${p.featured ? 'md:col-span-2' : ''}`}
           >
             <div className="flex flex-wrap items-center gap-2">
               {p.featured && <Tag>Featured</Tag>}

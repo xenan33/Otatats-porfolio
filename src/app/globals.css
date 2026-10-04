@@ -92,3 +92,31 @@ h1, h2, h3 {
   from { transform: rotate(-4deg); }
   to { transform: rotate(4deg); }
 }
+
+/* Cards and light sections pick up the accent (and the holiday colours when a season is on).
+   Left unlayered on purpose so it wins over the vendored SpotlightCard's dark defaults. */
+.tile {
+  position: relative;
+  border-color: color-mix(in srgb, var(--accent) 20%, var(--border));
+  background:
+    radial-gradient(120% 70% at 100% 0%, color-mix(in srgb, var(--glow, var(--accent)) 16%, transparent), transparent 60%),
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 7%, #fff), #fff 70%);
+  box-shadow: 0 1px 2px rgba(7, 26, 51, 0.04), 0 8px 24px -16px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.tile::before {
+  content: '';
+  position: absolute;
+  inset-inline: 24px;
+  top: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--glow, var(--accent)), transparent);
+  opacity: 0.75;
+  pointer-events: none;
+}
+.section-tint {
+  background:
+    radial-gradient(50% 60% at 0% 0%, color-mix(in srgb, var(--accent) 9%, transparent), transparent),
+    radial-gradient(50% 60% at 100% 100%, color-mix(in srgb, var(--glow, var(--accent)) 10%, transparent), transparent),
+    #f7f9fc;
+}

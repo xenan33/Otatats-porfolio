@@ -29,7 +29,7 @@ export default function Experience({ roles }: { roles: Role[] }) {
     <Section id="experience" eyebrow="Experience" title="Where I've worked">
       <div className="space-y-6">
         {companies.map((c) => (
-          <article key={c.name} className="grid gap-6 rounded-2xl border border-line bg-white p-6 sm:p-8 lg:grid-cols-[240px_1fr] lg:gap-10">
+          <article key={c.name} className="grid gap-6 tile rounded-2xl border p-6 sm:p-8 lg:grid-cols-[240px_1fr] lg:gap-10">
             <header>
               <h3 className="font-display text-xl font-semibold text-ink">{c.name}</h3>
               {c.location && <p className="mt-1 text-sm text-muted">{c.location}</p>}

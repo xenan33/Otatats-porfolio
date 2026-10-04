@@ -4,11 +4,11 @@ import { Section } from './ui';
 export default function Credentials({ certifications, education }: { certifications: Certification[]; education: Education[] }) {
   if (!certifications.length && !education.length) return null;
   return (
-    <div className="bg-surface">
+    <div className="section-tint">
       <Section id="certifications" eyebrow="Credentials" title="Certifications and education">
         <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
           {certifications.length > 0 && (
-            <ul className="divide-y divide-line rounded-2xl border border-line bg-white">
+            <ul className="divide-y divide-line tile rounded-2xl border">
               {certifications.map((c) => (
                 <li key={c.id} className="flex items-center gap-4 p-5">
                   <span aria-hidden="true" className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-accent/10 font-display text-sm font-semibold text-accent-2">

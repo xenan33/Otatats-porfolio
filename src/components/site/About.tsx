@@ -26,7 +26,7 @@ export default function About({ profile }: { profile: Profile }) {
           <p className="max-w-[62ch] text-lg leading-relaxed text-ink/85">{profile.bio}</p>
         </div>
         {looking && (
-          <div className="self-start rounded-2xl border border-line bg-surface p-6">
+          <div className="self-start tile rounded-2xl border p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">{looking.label}</p>
             <p className="mt-3 font-display text-xl font-semibold leading-snug text-ink">{looking.value}</p>
             <a href="#contact" className="mt-5 inline-flex text-sm font-semibold text-accent hover:text-accent-2">
