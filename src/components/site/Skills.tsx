@@ -2,7 +2,7 @@ import SpotlightCard from '@/components/reactbits/SpotlightCard';
 import type { Skill } from '@/lib/types';
 import { Section, rgba } from './ui';
 
-const ORDER = ['Cybersecurity', 'Identity & Cloud', 'Infrastructure', 'Automation', 'Leadership'];
+const ORDER = ['Security Operations', 'Identity & Cloud', 'Infrastructure', 'Automation', 'Leadership'];
 
 export default function Skills({ skills, accent }: { skills: Skill[]; accent: string }) {
   if (!skills.length) return null;

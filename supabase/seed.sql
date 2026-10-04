@@ -17,22 +17,21 @@ insert into portfolio.profile_private (profile_id, phone)
 select id, '+63 917 625 7313' from portfolio.profile order by id limit 1;
 
 insert into portfolio.skills (name, category, proficiency_label, sort_order) values
-  ('Cybersecurity Incident Response',        'Cybersecurity',     'Expert',     1),
-  ('Threat & Vulnerability Management',      'Cybersecurity',     'Proficient', 2),
-  ('Security Policy Enforcement',            'Cybersecurity',     'Proficient', 3),
-  ('EDR/XDR (Huntress, Bitdefender)',        'Cybersecurity',     'Expert',     4),
-  ('Proofpoint, Endpoint & Email Security',  'Cybersecurity',     'Expert',     5),
-  ('Microsoft 365',                          'Identity & Cloud',  'Expert',     1),
-  ('Azure AD (Entra ID)',                    'Identity & Cloud',  'Expert',     2),
+  ('Incident Response',        'Security Operations',     'Expert',     1),
+  ('Threat & Vulnerability Management',      'Security Operations',     'Proficient', 2),
+  ('Security Policy Enforcement',            'Security Operations',     'Proficient', 3),
+  ('EDR/XDR (Huntress, Bitdefender)',        'Security Operations',     'Expert',     4),
+  ('Email Security (Proofpoint)',  'Security Operations',     'Expert',     5),
+  ('Microsoft 365 Administration',                          'Identity & Cloud',  'Expert',     1),
+  ('Microsoft Entra ID (Azure AD)',                    'Identity & Cloud',  'Expert',     2),
   ('Active Directory',                       'Identity & Cloud',  'Expert',     3),
   ('Windows Server',                         'Infrastructure',    'Proficient', 1),
   ('Group Policy',                           'Infrastructure',    'Proficient', 2),
   ('Patch Management', 'Infrastructure', 'Expert', 3),
   ('PowerShell',                             'Automation',        'Proficient', 1),
   ('Power Automate',                         'Automation',        'Proficient', 2),
-  ('IT Operations Leadership',               'Leadership',        'Proficient', 1),
-  ('MSP & Client-Facing Support',            'Leadership',        'Expert',     2),
-  ('Mentoring Engineers',                    'Leadership',        'Proficient', 3);
+  ('Team Leadership & Mentoring',               'Leadership',        'Proficient', 1),
+  ('Client Support & Escalations',            'Leadership',        'Expert',     2);
 
 insert into portfolio.experience (company, title, location, description, start_date, end_date, current, sort_order) values
   ('Geidi IT Services', 'IT Support Team Lead', 'Cebu, Philippines',
