@@ -27,7 +27,7 @@ insert into portfolio.skills (name, category, proficiency_label, sort_order) val
   ('Active Directory',                       'Identity & Cloud',  'Expert',     3),
   ('Windows Server',                         'Infrastructure',    'Proficient', 1),
   ('Group Policy',                           'Infrastructure',    'Proficient', 2),
-  ('Patch Management & Infrastructure Monitoring', 'Infrastructure', 'Expert', 3),
+  ('Patch Management', 'Infrastructure', 'Expert', 3),
   ('PowerShell',                             'Automation',        'Proficient', 1),
   ('Power Automate',                         'Automation',        'Proficient', 2),
   ('IT Operations Leadership',               'Leadership',        'Proficient', 1),
