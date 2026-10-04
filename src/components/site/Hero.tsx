@@ -10,12 +10,8 @@ const AVAILABILITY: Record<Profile['availability'], string | null> = {
   closed: null,
 };
 
-const ROTATING = [
-  'Cybersecurity Incident Response',
-  'Automation with PowerShell & Power Automate',
-  'Microsoft 365 · Entra ID · Active Directory',
-  'EDR/XDR · Patch Management · Hardening',
-];
+// Mirrors the tagline in the owner's email signature.
+const ROTATING = ['Microsoft 365', 'Infrastructure', 'Cybersecurity', 'Automation & Development'];
 
 export default function Hero({ profile, accent }: { profile: Profile; accent: string }) {
   const availability = AVAILABILITY[profile.availability];

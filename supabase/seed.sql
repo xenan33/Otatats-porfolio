@@ -4,11 +4,11 @@
 insert into portfolio.profile (name, headline, bio, location, email, linkedin_url, target_role, availability)
 values (
   'John Anthony Otayco',
-  'IT Support Team Lead · Cybersecurity & Automation',
+  'IT Infrastructure & Security',
   'IT Support Team Lead with 7+ years of experience in Managed Service Provider (MSP) and enterprise environments. Currently part of the security team, actively involved in cybersecurity monitoring, incident response, vulnerability remediation, and secure infrastructure operations. Strong hands-on background in Microsoft 365, Active Directory, endpoint security, and patch management, with proven leadership in guiding engineers, handling escalations, and supporting security-driven initiatives.',
   'San Fernando City, Cebu, Philippines',
-  'xenan03@gmail.com',
-  'https://www.linkedin.com/in/xenotayco',
+  'jao@otatats.top',
+  'https://www.linkedin.com/in/xenotayco/',
   'IT Security & Infrastructure Officer',
   'open'
 );
