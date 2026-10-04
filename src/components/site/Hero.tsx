@@ -1,6 +1,5 @@
 import BlurText from '@/components/reactbits/BlurText';
 import CountUp from '@/components/reactbits/CountUp';
-import ShinyText from '@/components/reactbits/ShinyText';
 import type { PortfolioData } from '@/lib/types';
 import HeroBackdrop from './HeroBackdrop';
 import { yearsSince } from './ui';
@@ -28,27 +27,29 @@ export default function Hero({ data, animated }: { data: PortfolioData; animated
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-20 pt-16 sm:px-6 lg:grid-cols-[1.4fr_1fr] lg:pb-28 lg:pt-24">
         <div>
           {availability && (
-            <p className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
+              <span className="inline-flex items-center gap-2 rounded-full bg-emerald-400/15 px-3 py-1 font-semibold text-emerald-300">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                </span>
+                {availability}
               </span>
-              <ShinyText
-                text={`${availability}${profile.target_role ? ` · ${profile.target_role}` : ''}`}
-                color="#c7dcf7"
-                shineColor="#ffffff"
-                speed={3}
-              />
-            </p>
+              {profile.target_role && (
+                <span className="text-white/75">
+                  Seeking <span className="font-semibold text-white">{profile.target_role}</span>
+                </span>
+              )}
+            </div>
           )}
           <h1 className="mt-7 text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
             <BlurText text={profile.name} animateBy="words" delay={120} direction="bottom" />
           </h1>
           {profile.headline && <p className="mt-5 font-display text-xl font-medium text-sky sm:text-2xl">{profile.headline}</p>}
-          <ul className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-[15px] text-white/70">
-            {FOCUS.map((f, i) => (
-              <li key={f} className="flex items-center gap-3">
-                {i > 0 && <span aria-hidden="true" className="h-1 w-1 rounded-full bg-accent" />}
+          <ul className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[15px] text-white/70">
+            {FOCUS.map((f) => (
+              <li key={f} className="flex items-center gap-2">
+                <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
                 {f}
               </li>
             ))}

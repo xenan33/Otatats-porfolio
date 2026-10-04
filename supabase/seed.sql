@@ -23,7 +23,7 @@ insert into portfolio.skills (name, category, proficiency_label, sort_order) val
   ('EDR/XDR (Huntress, Bitdefender)',        'Cybersecurity',     'Expert',     4),
   ('Proofpoint, Endpoint & Email Security',  'Cybersecurity',     'Expert',     5),
   ('Microsoft 365',                          'Identity & Cloud',  'Expert',     1),
-  ('Azure AD (Entra ID)',                    'Identity & Cloud',  'Proficient', 2),
+  ('Azure AD (Entra ID)',                    'Identity & Cloud',  'Expert',     2),
   ('Active Directory',                       'Identity & Cloud',  'Expert',     3),
   ('Windows Server',                         'Infrastructure',    'Proficient', 1),
   ('Group Policy',                           'Infrastructure',    'Proficient', 2),
