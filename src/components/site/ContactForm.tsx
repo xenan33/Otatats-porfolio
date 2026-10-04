@@ -4,7 +4,7 @@ import { useActionState } from 'react';
 import { sendContactMessage, type ContactResult } from '@/app/contact-action';
 
 const input =
-  'w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-[15px] text-ink placeholder:text-muted/70 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20';
+  'w-full rounded-lg border border-line bg-card px-3.5 py-2.5 text-[15px] text-ink placeholder:text-muted/70 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20';
 
 export default function ContactForm() {
   const [state, action, pending] = useActionState<ContactResult | null, FormData>(sendContactMessage, null);

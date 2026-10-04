@@ -14,7 +14,7 @@ export default function Contact({ data, phone }: { data: PortfolioData; phone: s
 
   return (
     <section id="contact" className="scroll-mt-20 px-4 pb-20 sm:px-6 lg:pb-24">
-      <div className="mx-auto grid max-w-6xl gap-10 overflow-hidden rounded-3xl bg-navy p-8 text-white sm:p-12 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
+      <div className="mx-auto grid max-w-6xl gap-10 overflow-hidden rounded-3xl bg-navy p-8 text-white dark:ring-1 dark:ring-navy-line sm:p-12 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky">Contact</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Let&apos;s talk</h2>
@@ -41,7 +41,7 @@ export default function Contact({ data, phone }: { data: PortfolioData; phone: s
           </dl>
         </div>
         {settings.show_contact_form && (
-          <div className="relative rounded-2xl bg-white p-6 text-ink sm:p-8">
+          <div className="relative rounded-2xl bg-card p-6 text-ink sm:p-8">
             <ContactForm />
           </div>
         )}

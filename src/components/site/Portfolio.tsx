@@ -26,7 +26,7 @@ export default function Portfolio({ data, phone, season = null }: { data: Portfo
   }
 
   return (
-    <div style={{ '--accent': accent, '--glow': season ? SEASON_THEME[season].aurora[1] : accent } as React.CSSProperties}>
+    <div data-theme-auto style={{ '--accent': accent, '--glow': season ? SEASON_THEME[season].aurora[1] : accent } as React.CSSProperties}>
       {season && <SeasonalEffects season={season} />}
       <Nav name={profile.name} resumeUrl={profile.resume_url} />
       <main>

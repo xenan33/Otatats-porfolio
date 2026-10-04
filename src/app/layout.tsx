@@ -14,8 +14,8 @@ export const metadata: Metadata = {
   other: { 'darkreader-lock': 'true' },
 };
 
-// "only light" also tells Chrome's and Samsung's auto-dark not to recolour the page.
-export const viewport: Viewport = { colorScheme: 'only light', themeColor: '#071a33' };
+// The public site has its own dark theme; declaring both stops Chrome's and Samsung's auto-dark from recolouring it.
+export const viewport: Viewport = { colorScheme: 'light dark', themeColor: '#071a33' };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (

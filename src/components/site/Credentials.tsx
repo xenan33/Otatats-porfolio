@@ -19,7 +19,7 @@ export default function Credentials({ certifications, education }: { certificati
                     {c.issuer && <p className="text-sm text-muted">{c.issuer}</p>}
                   </div>
                   {c.credential_url && (
-                    <a href={c.credential_url} target="_blank" rel="noopener noreferrer" className="shrink-0 text-sm font-semibold text-accent hover:text-accent-2">
+                    <a href={c.credential_url} target="_blank" rel="noopener noreferrer" className="shrink-0 text-sm font-semibold text-accent-text hover:text-accent-2">
                       Verify ↗
                     </a>
                   )}
@@ -29,7 +29,7 @@ export default function Credentials({ certifications, education }: { certificati
           )}
           <div className="space-y-4">
             {education.map((e) => (
-              <div key={e.id} className="rounded-2xl bg-navy p-6 text-white">
+              <div key={e.id} className="rounded-2xl bg-navy p-6 text-white dark:ring-1 dark:ring-navy-line">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky">Education</p>
                 <p className="mt-3 font-display text-lg font-semibold leading-snug">{e.degree}</p>
                 <p className="mt-2 text-sm text-white/70">

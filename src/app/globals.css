@@ -16,6 +16,27 @@
   --navy-2: #0c2647;
   --navy-line: #1c3150;
   --sky: #8cc2ff;
+  --card: #ffffff;
+  /* How much of the accent shows in accent-coloured text; dark mode lightens it. */
+  --accent-text-mix: 100%;
+}
+
+/* Dark theme for the public site only (pages marked data-theme-auto); the admin stays light. */
+@media (prefers-color-scheme: dark) {
+  :root:has([data-theme-auto]) {
+    --bg: #07111f;
+    --surface: #0b1729;
+    --surface-2: #14263f;
+    --border: #213656;
+    --text: #e6edf7;
+    --muted: #9fb1c8;
+    --accent-2: #a9cdfb;
+    --navy: #0b1c34;
+    --navy-2: #102848;
+    --navy-line: #26426b;
+    --card: #0e1c31;
+    --accent-text-mix: 55%;
+  }
 }
 
 @theme inline {
@@ -32,6 +53,8 @@
   --color-navy-2: var(--navy-2);
   --color-navy-line: var(--navy-line);
   --color-sky: var(--sky);
+  --color-card: var(--card);
+  --color-accent-text: color-mix(in srgb, var(--accent) var(--accent-text-mix), white);
   --font-sans: var(--font-plex), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-sora), var(--font-plex), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -41,6 +64,10 @@
 html {
   scroll-behavior: smooth;
   color-scheme: only light;
+}
+
+html:has([data-theme-auto]) {
+  color-scheme: light dark;
 }
 
 body {
@@ -100,8 +127,8 @@ h1, h2, h3 {
   border-color: color-mix(in srgb, var(--accent) 20%, var(--border));
   background:
     radial-gradient(120% 70% at 100% 0%, color-mix(in srgb, var(--glow, var(--accent)) 16%, transparent), transparent 60%),
-    linear-gradient(180deg, color-mix(in srgb, var(--accent) 7%, #fff), #fff 70%),
-    #fff;
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 7%, var(--card)), var(--card) 70%),
+    var(--card);
   box-shadow: 0 1px 2px rgba(7, 26, 51, 0.04), 0 8px 24px -16px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 .tile::before {
@@ -119,5 +146,5 @@ h1, h2, h3 {
   background:
     radial-gradient(50% 60% at 0% 0%, color-mix(in srgb, var(--accent) 9%, transparent), transparent),
     radial-gradient(50% 60% at 100% 100%, color-mix(in srgb, var(--glow, var(--accent)) 10%, transparent), transparent),
-    #f7f9fc;
+    var(--surface);
 }

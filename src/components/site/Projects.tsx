@@ -26,17 +26,17 @@ export default function Projects({ projects, accent }: { projects: Project[]; ac
             )}
             <div className="mt-6 flex flex-wrap gap-3">
               {p.live_url && (
-                <a href={p.live_url} target="_blank" rel="noopener noreferrer" className="rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent">
+                <a href={p.live_url} target="_blank" rel="noopener noreferrer" className="rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent dark:bg-accent dark:hover:bg-accent-2 dark:hover:text-navy">
                   Visit site ↗
                 </a>
               )}
               {p.long_description && (
-                <Link href={`/projects/${p.slug}`} className="rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent">
+                <Link href={`/projects/${p.slug}`} className="rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent-text">
                   Read more
                 </Link>
               )}
               {p.github_url && (
-                <a href={p.github_url} target="_blank" rel="noopener noreferrer" className="rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent">
+                <a href={p.github_url} target="_blank" rel="noopener noreferrer" className="rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent-text">
                   Source ↗
                 </a>
               )}

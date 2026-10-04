@@ -40,7 +40,7 @@ export default function Experience({ roles }: { roles: Role[] }) {
                 <li key={r.id} className="relative">
                   <span
                     aria-hidden="true"
-                    className={`absolute -left-[31px] top-1.5 h-3 w-3 rounded-full border-2 ${r.current ? 'border-accent bg-accent' : 'border-line bg-white'}`}
+                    className={`absolute -left-[31px] top-1.5 h-3 w-3 rounded-full border-2 ${r.current ? 'border-accent bg-accent' : 'border-line bg-card'}`}
                   />
                   <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                     <h4 className="font-semibold text-ink">{r.title}</h4>
@@ -49,6 +49,7 @@ export default function Experience({ roles }: { roles: Role[] }) {
                       {formatMonth(r.start_date)} – {r.current ? 'Present' : formatMonth(r.end_date)}
                     </p>
                   </div>
+                  {r.location && r.location !== c.location && <p className="mt-1 text-sm text-muted">{r.location}</p>}
                   <div className="mt-3">
                     <Bullets text={r.description} />
                   </div>

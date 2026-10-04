@@ -38,16 +38,16 @@ insert into portfolio.skills (name, category, proficiency_label, sort_order) val
   ('Technical Documentation',                'Service Desk',      'Proficient', 4);
 
 insert into portfolio.experience (company, title, location, description, start_date, end_date, current, sort_order) values
-  ('Managed Service Provider (MSP)', 'IT Support Team Lead', 'Cebu, Philippines',
+  ('Australian Managed Service Provider (MSP)', 'IT Support Team Lead', 'Cebu, Philippines',
    E'- Lead and mentor IT support engineers in an MSP environment\n- Oversee daily operations, escalations, and incident response, including security-related incidents\n- Participate as part of the security team supporting threat monitoring and vulnerability remediation\n- Coordinate infrastructure projects, system upgrades, and security implementations\n- Collaborate with cybersecurity teams on EDR/XDR deployment and policy enforcement\n- Ensure patch management, system hardening, and compliance',
    '2025-10-01', null, true, 1),
-  ('Managed Service Provider (MSP)', 'IT Support Engineer – Subject Matter Expert (Cybersecurity)', 'Cebu, Philippines',
+  ('Australian Managed Service Provider (MSP)', 'IT Support Engineer – Subject Matter Expert (Cybersecurity)', 'Cebu, Philippines',
    E'- Senior escalation point for security monitoring, threat analysis, and incident response\n- Managed Proofpoint, Huntress, Bitdefender, and endpoint security solutions\n- Assisted with identity and access management and security policy implementation\n- Mentored junior engineers on secure troubleshooting practices',
    '2025-03-01', '2025-10-31', false, 2),
-  ('Managed Service Provider (MSP)', 'IT Support Engineer (On-site Assignments)', 'Perth, Australia',
+  ('Australian Managed Service Provider (MSP)', 'IT Support Engineer (On-site Assignments)', 'Perth, Australia',
    E'- Delivered onsite infrastructure and end-user support in business-critical environments\n- Assignments: Sep 2023 – Dec 2023 and Jan 2025 – Apr 2025',
    '2023-09-01', '2025-04-30', false, 3),
-  ('Managed Service Provider (MSP)', 'IT Support Engineer', 'Cebu, Philippines',
+  ('Australian Managed Service Provider (MSP)', 'IT Support Engineer', 'Cebu, Philippines',
    E'- Administered Microsoft 365, Active Directory, Windows Server, and networking services\n- Managed patching, Group Policy, system configuration, and technical documentation\n- Responded to security alerts and assisted in risk remediation\n- Automated routine tasks using PowerShell and Power Automate',
    '2018-04-01', '2025-03-31', false, 4),
   ('Atos', 'Technical Helpdesk Analyst', 'Cebu, Philippines',
@@ -55,7 +55,7 @@ insert into portfolio.experience (company, title, location, description, start_d
    '2017-07-01', '2018-04-30', false, 5),
   ('Convergys', 'Technical Support Representative', 'Cebu, Philippines',
    E'- Assisted U.S. clients with broadband and home network support\n- Handled billing concerns and router/modem troubleshooting',
-   '2017-07-01', '2018-04-30', false, 6);
+   '2016-01-01', '2017-06-30', false, 6);
 
 insert into portfolio.certifications (name, issuer, sort_order) values
   ('SC-900: Microsoft Security, Compliance & Identity Fundamentals', 'Microsoft', 1),

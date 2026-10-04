@@ -14,7 +14,7 @@ export default function Bats() {
           viewBox="0 0 40 20"
           width={b.size * 2}
           height={b.size}
-          className="absolute -left-16 fill-black/70"
+          className="absolute -left-16 fill-black/70 dark:fill-slate-200/50"
           style={{ top: b.top, animation: `bat-fly ${b.dur} linear ${b.delay} infinite` }}
         >
           <path d="M20 8c1-2 2-3 3-3l1 2c3-4 9-5 16-3-4 1-6 4-6 7-2-2-4-2-6 0-1-2-3-2-4 0-1-1-2-2-4-2s-3 1-4 2c-1-2-3-2-4 0-2-2-4-2-6 0 0-3-2-6-6-7 7-2 13-1 16 3l1-2c1 0 2 1 3 3z" />

@@ -290,7 +290,7 @@ create table portfolio.audit_log (
 | **Leadership** | IT Operations Leadership · MSP & Client-Facing Support · Mentoring engineers |
 
 ### Experience
-1. **IT Support Team Lead** — Managed Service Provider (MSP; employer kept anonymous on the site), Cebu, PH · Oct 2025 – Present
+1. **IT Support Team Lead** — Australian Managed Service Provider (MSP; employer kept anonymous on the site), Cebu, PH · Oct 2025 – Present
    - Lead and mentor IT support engineers in an MSP environment
    - Oversee daily operations, escalations, and incident response, including security-related incidents
    - Participate as part of the security team supporting threat monitoring and vulnerability remediation
@@ -457,7 +457,7 @@ Pull them locally with `vercel env pull .env.local`; `.env*` stays in `.gitignor
 ## 13. Open items for the owner
 
 1. **Convergys and Atos dates:** both show Jul 2017 – Apr 2018 on the resume. Confirm the Convergys dates.
-2. **Employer for the SME and Engineer roles** (Mar 2025 – Oct 2025, Apr 2018 – Mar 2025) is not named. Shown as "Managed Service Provider (MSP)"; the owner keeps the current employer anonymous.
+2. **Employer for the SME and Engineer roles** (Mar 2025 – Oct 2025, Apr 2018 – Mar 2025) is not named. Shown as "Australian Managed Service Provider (MSP)"; the owner keeps the current employer anonymous.
 3. **Perth on-site Jan–Apr 2025** overlaps the SME role (Mar 2025). Fine if it was an assignment during that role; the site can show it as a sub-entry.
 4. **Codex tech stack** and a screenshot for the project card.
 5. **Domain choice:** portfolio on `otatats.top` root or a subdomain.
