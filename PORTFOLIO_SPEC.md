@@ -29,9 +29,9 @@
 | Styling | **Tailwind CSS v4** | React Bits ships Tailwind (`-TW`) variants of every component |
 | UI animations | **React Bits** + Framer Motion / GSAP (as required by chosen components) | Requested design system |
 | Admin form primitives | shadcn/ui (inputs, dialogs, tables, toasts) | Pairs with Tailwind, same CLI as React Bits |
-| Database | **Supabase Postgres** | Free tier, Row Level Security, a Supabase connector is already available to this project |
-| Auth | **Supabase Auth** (email magic link or GitHub OAuth) + TOTP MFA | Single owner login, MFA fits the security theme |
-| File storage | Supabase Storage (`public-assets` bucket) | Profile photo, project screenshots, resume PDF |
+| Database | **Supabase `shared-backend` project** (`hulggwtsktkoiaijzkhj`, ap-southeast-1), **`portfolio` schema only** | Already exists with portfolio tables; shared with the Codex app, which lives in its own `inner_mirror` schema (see §7) |
+| Auth | **Supabase Auth of `shared-backend`** (email magic link or GitHub OAuth) + TOTP MFA | The auth user pool is shared with Codex, so admin access is pinned to the owner's user id, never to "any authenticated user" |
+| File storage | Supabase Storage, new bucket **`portfolio-assets`** (no buckets exist yet) | Profile photo, project screenshots, resume PDF; prefixed name so it can't clash with other apps |
 | Hosting | **Vercel** | Zero-config Next.js, preview deploys per PR |
 | Domain | `otatats.top` (portfolio at root or `portfolio.otatats.top`) | Sits next to `codex.otatats.top` |
 
@@ -153,7 +153,7 @@ npx shadcn@latest add https://reactbits.dev/r/DecryptedText-TS-TW
 ### 6.2 Editing features
 - CRUD forms for Profile, Skills, Experience, Certifications, Projects.
 - **Drag-and-drop ordering** (dnd-kit) persisted as `sort_order`.
-- **Visibility toggle** per item (`is_public`) so drafts can be prepared before showing them.
+- **Visibility toggle** per item (`is_published`) so drafts can be prepared before showing them.
 - Markdown support for summaries and bullets.
 - Image upload to Supabase Storage (avatar, badges, project screenshots) with size/type validation.
 - Resume PDF upload; `/resume` always serves the latest.
@@ -172,63 +172,101 @@ Managed in `/admin/settings`:
 
 ---
 
-## 7. Data model (Supabase / Postgres)
+## 7. Data model (Supabase `shared-backend`, schema `portfolio`)
+
+### 7.1 Review of the shared database (done 2026-10-04)
+
+| Schema | Owner / app | Contents | Portfolio may touch? |
+|---|---|---|---|
+| `portfolio` | **This website** (migration `portfolio_schema`, 2026-10-03) | `profile`, `skills`, `experience`, `certifications`, `projects`, all **empty**, RLS on, public read of `is_published = true` rows | **Yes, this is ours** |
+| `inner_mirror` | Codex / The Inner Mirror (codex.otatats.top), live | 13 tables: assessments, results, journal entries, login codes, sessions, usage... | **No. Never read, write or migrate it** |
+| `private` | Shared helper (migration `shared_foundation`) | `private.set_updated_at()` trigger function | Use the function only, don't change it |
+| `public` | Unused | No tables | No, keep it empty |
+| `auth` | Shared Supabase Auth | 1 user today, shared by both apps | Read own session only |
+| `storage` | Shared | No buckets yet | Only the new `portfolio-assets` bucket |
+
+Database size is 13 MB, far from any limit, so there's no capacity reason to split out. **A portfolio schema already exists, so no separate project or table set is created**; the site uses `portfolio.*` and any additions in §7.3 go into that same schema.
+
+### 7.2 Existing tables (use as-is)
 
 ```sql
-profile (
-  id uuid pk, full_name text, display_name text, headline text, summary text,
-  location text, email text, phone text, linkedin_url text, github_url text,
-  avatar_url text, resume_url text, target_role text,
-  availability text check (availability in ('open','offers','closed')),
-  updated_at timestamptz
-)
-
-skill_categories (id uuid pk, name text, icon text, sort_order int)
-
-skills (
-  id uuid pk, category_id uuid fk, name text, level int null, years numeric null,
-  logo_url text null, is_public bool default true, sort_order int
-)
-
-experiences (
-  id uuid pk, title text, company text, location text, employment_type text,
-  start_date date, end_date date null, is_current bool,
-  summary text, is_public bool default true, sort_order int
-)
-
-experience_bullets (id uuid pk, experience_id uuid fk, text text, sort_order int)
-experience_skills (experience_id uuid fk, skill_id uuid fk)  -- tags
-
-certifications (
-  id uuid pk, name text, issuer text, code text null, issued_on date null,
-  credential_url text null, badge_url text null, is_public bool, sort_order int
-)
-
-projects (
-  id uuid pk, slug text unique, title text, tagline text, description text,
-  live_url text, repo_url text null, image_url text, tags text[],
-  is_featured bool, is_public bool, sort_order int
-)
-
-education (id uuid pk, degree text, school text, location text, start_year int, end_year int, sort_order int)
-
-site_settings (
-  id int pk default 1, accent text, background_effect text,
-  show_phone bool default false, show_email bool default true, show_contact_form bool default true,
-  seo_title text, seo_description text, og_image_url text
-)
-
-share_links (id uuid pk, token text unique, label text, reveal_phone bool, expires_at timestamptz, views int, last_viewed_at timestamptz, revoked bool)
-
-contact_messages (id uuid pk, name text, email text, company text, message text, created_at timestamptz, is_read bool, ip_hash text)
-
-audit_log (id bigserial pk, table_name text, row_id uuid, action text, before jsonb, after jsonb, at timestamptz)
+portfolio.profile        (id bigint identity pk, name, headline, bio, location, email,
+                          linkedin_url, github_url, profile_image_url, resume_url,
+                          is_published bool default true, created_at, updated_at)
+portfolio.skills         (id, name, category text, proficiency_label text,
+                          sort_order int, is_published, created_at, updated_at)
+portfolio.experience     (id, company, title, location, description, start_date, end_date,
+                          current bool, sort_order, is_published, created_at, updated_at)
+portfolio.certifications (id, name, issuer, issue_date, expiry_date, credential_url,
+                          description, sort_order, is_published, created_at, updated_at)
+portfolio.projects       (id, title, slug unique (kebab-case check), description, long_description,
+                          image_url, github_url, live_url, technologies text[], featured bool,
+                          sort_order, is_published, created_at, updated_at)
 ```
 
-### Row Level Security
-- Public (anon) role: `SELECT` only on rows where `is_public = true`, and on `profile`/`site_settings` through a **view** that drops `phone` and private fields unless allowed.
-- `contact_messages`: anon can `INSERT` only (via server action), never `SELECT`.
-- Everything else: full access only when `auth.jwt() ->> 'email' = <owner email>` and `aal = 'aal2'` (MFA passed).
+Naming used by the existing tables: visibility flag → **`is_published`**, `is_current` → **`current`**, skill `level` → **`proficiency_label`** (Familiar / Proficient / Expert), skill categories are a **text column** (no separate table needed), experience bullets are stored as **Markdown in `experience.description`** (one `- ` line per bullet).
+
+### 7.3 Additions needed (new migration, `portfolio` schema only)
+
+Applied as one migration named `portfolio_admin_and_settings` when building milestone 3. Nothing outside `portfolio` (plus the new storage bucket) is created or altered.
+
+```sql
+-- Owner allow-list: who may edit. Pinned to a user id because auth users are shared with Codex.
+create table portfolio.admins (user_id uuid primary key references auth.users(id) on delete cascade);
+
+create or replace function portfolio.is_admin() returns boolean
+language sql stable security definer set search_path = '' as $$
+  select exists (select 1 from portfolio.admins where user_id = auth.uid())
+     and coalesce(auth.jwt() ->> 'aal', '') = 'aal2';   -- MFA passed
+$$;
+
+-- Columns the spec needs on existing tables
+alter table portfolio.profile add column phone text, add column target_role text,
+  add column availability text check (availability in ('open','offers','closed')) default 'open';
+
+create table portfolio.education (
+  id bigint generated always as identity primary key, degree text not null, school text not null,
+  location text, start_year int, end_year int, sort_order int default 0, is_published bool default true,
+  created_at timestamptz default now(), updated_at timestamptz default now());
+
+create table portfolio.site_settings (
+  id int primary key default 1 check (id = 1), accent text default '#22c55e',
+  background_effect text default 'faulty-terminal', show_phone bool default false,
+  show_email bool default true, show_contact_form bool default true,
+  seo_title text, seo_description text, og_image_url text, updated_at timestamptz default now());
+
+create table portfolio.share_links (
+  id uuid primary key default gen_random_uuid(), token text unique not null, label text,
+  reveal_phone bool default false, expires_at timestamptz, views int default 0,
+  last_viewed_at timestamptz, revoked bool default false, created_at timestamptz default now());
+
+create table portfolio.contact_messages (
+  id bigint generated always as identity primary key, name text not null, email text not null,
+  company text, message text not null, ip_hash text, is_read bool default false,
+  created_at timestamptz default now());
+
+create table portfolio.audit_log (
+  id bigint generated always as identity primary key, table_name text, row_id text,
+  action text, before jsonb, after jsonb, actor uuid default auth.uid(), at timestamptz default now());
+
+-- updated_at triggers reuse the shared helper: private.set_updated_at()
+```
+
+### 7.4 Security rules (RLS) for the shared database
+- **Keep** the existing public `SELECT ... using (is_published)` policies.
+- **Add** owner write policies on every portfolio table: `for all to authenticated using (portfolio.is_admin()) with check (portfolio.is_admin())`. Never use `to authenticated using (true)`: Codex users sign in to the same auth pool and would get edit rights.
+- `profile.phone` must not leak through the public policy: public pages read through a view `portfolio.public_profile` that returns `phone` only when `site_settings.show_phone`, or through a share link resolved server-side.
+- `share_links`, `contact_messages`, `audit_log`, `admins`: no anon access at all; the contact form inserts through a server action using the service role after Turnstile + rate limit.
+- `site_settings`: anon `SELECT`, admin write.
+- Storage bucket `portfolio-assets`: public read, write only when `portfolio.is_admin()`.
+- After the migration, run Supabase security advisors and fix anything flagged.
+
+### 7.5 App configuration
+- Env: `NEXT_PUBLIC_SUPABASE_URL=https://hulggwtsktkoiaijzkhj.supabase.co`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` (publishable key), `SUPABASE_SERVICE_ROLE_KEY` (server only, Vercel encrypted env).
+- Supabase client created with `db: { schema: 'portfolio' }` so every query targets the portfolio schema by default.
+- `portfolio` must be listed under **API settings → Exposed schemas** (alongside `inner_mirror`); confirm in the dashboard.
+- Generated types: `supabase gen types typescript --project-id hulggwtsktkoiaijzkhj --schema portfolio`.
+- Migrations live in this repo under `supabase/migrations/` and are prefixed `portfolio_`, so they're easy to tell apart from Codex's `inner_mirror_` migrations in the shared history.
 
 ---
 
@@ -356,8 +394,8 @@ lib/
   validation/*.ts                # zod schemas
   actions/*.ts                   # server actions
 supabase/
-  migrations/*.sql
-  seed.sql                       # §8 content
+  migrations/portfolio_*.sql     # portfolio schema only (shared-backend)
+  seed.sql                       # §8 content, inserts into portfolio.*
 middleware.ts                    # admin guard + security headers
 ```
 
@@ -371,6 +409,7 @@ middleware.ts                    # admin guard + security headers
 4. **Codex tech stack** and a screenshot for the project card.
 5. **Domain choice:** portfolio on `otatats.top` root or a subdomain.
 6. **Profile photo** and certification badge images / verify links.
+7. **Owner account:** sign in once on the portfolio admin so your auth user id can be added to `portfolio.admins` (if the one existing auth user is you, it can be reused).
 
 ---
 
@@ -378,9 +417,9 @@ middleware.ts                    # admin guard + security headers
 
 | # | Milestone | Done when |
 |---|---|---|
-| 1 | Scaffold | Next.js + Tailwind + Supabase wired, deployed to Vercel preview |
+| 1 | Scaffold | Next.js + Tailwind wired to `shared-backend` (`portfolio` schema), deployed to Vercel preview |
 | 2 | Public site (static seed) | All §4 sections render from `seed.sql`, React Bits components in place |
-| 3 | Admin auth | Login + MFA + middleware guard + RLS policies |
+| 3 | Admin auth | Login + MFA + middleware guard + §7.3 migration and §7.4 RLS policies |
 | 4 | Admin CRUD | Profile, Skills, Experience, Certifications, Projects editable, ordering, visibility |
 | 5 | Settings & share links | §6.3 complete, recruiter links tracked |
 | 6 | Contact & hardening | Contact form, headers, security.txt, Lighthouse and security scan pass |
