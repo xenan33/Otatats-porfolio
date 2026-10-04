@@ -478,3 +478,16 @@ Pull them locally with `vercel env pull .env.local`; `.env*` stays in `.gitignor
 | 5 | Settings & share links | §6.3 complete, recruiter links tracked |
 | 6 | Contact & hardening | Contact form, headers, security.txt, Lighthouse and security scan pass |
 | 7 | Launch | Vercel production deploy on the custom domain (§12), analytics on, LinkedIn updated with the link |
+
+---
+
+## 15. Build status (2026-10-04)
+
+Milestones 1–6 are implemented in the repo; milestone 7 (Vercel launch) is waiting on the owner's Vercel account and domain.
+
+Differences from the plan above, decided during the build:
+- **Phone number** lives in its own admin-only table `portfolio.profile_private` instead of a view, so it can never leak through the public read policy.
+- **Contact form** uses a hidden honeypot field plus a 3-messages-per-hour limit per (hashed) IP. Cloudflare Turnstile can be added later if spam shows up.
+- **Background:** LetterGlitch (no WebGL) instead of FaultyTerminal; it switches to a static dot grid on phones and for reduced-motion visitors.
+- **Admin ordering** uses an "Order" number field rather than drag-and-drop (v2).
+- **Not built yet:** ProfileCard, MagicBento, LogoLoop and Dock components, email notifications for new messages, blog (Phase 2).
