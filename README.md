@@ -36,6 +36,7 @@ The first visit to `/admin/mfa` shows a QR code to add to your authenticator app
 
 - `supabase/migrations/` holds the portfolio migrations (prefixed `portfolio_`), applied to `shared-backend`.
 - `supabase/seed.sql` is the resume content already loaded into the database.
+- The database is shared with Codex: see [`docs/SHARED_DATABASE.md`](./docs/SHARED_DATABASE.md) for what the portfolio may and may not touch.
 - Public visitors can read published rows only. Writes need an admin with MFA (row level security). Phone number, contact messages, share links and the audit log are never readable publicly.
 
 ## Deploy (Vercel)
@@ -48,6 +49,7 @@ The first visit to `/admin/mfa` shows a QR code to add to your authenticator app
 ## Checks
 
 ```bash
+npm run check:db   # SQL stays out of Codex (inner_mirror)
 npm run lint
 npx tsc --noEmit
 npm run build
