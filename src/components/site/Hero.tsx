@@ -22,7 +22,7 @@ export default function Hero({ data, animated }: { data: PortfolioData; animated
   const note = availability?.note(profile.target_role);
   const current = experience.find((e) => e.current) ?? experience[0];
   const earliest = experience.reduce<string | null>((min, e) => (!min || e.start_date < min ? e.start_date : min), null);
-  const years = earliest ? yearsSince(earliest) : 0;
+  const years = profile.years_experience ?? (earliest ? yearsSince(earliest) : 0);
 
   return (
     <section className="relative overflow-hidden bg-navy text-white">

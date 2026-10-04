@@ -49,6 +49,7 @@ export const TABLES: Record<string, TableConfig> = {
       { name: 'profile_image_url', label: 'Profile photo URL', type: 'url', help: 'Upload on the dashboard, then paste the link here.' },
       { name: 'resume_url', label: 'Resume PDF URL', type: 'url', help: 'Upload on the dashboard, then paste the link here.' },
       { name: 'target_role', label: 'Target role', type: 'text' },
+      { name: 'years_experience', label: 'Years of experience', type: 'number', help: 'Shown as "8+ years in IT". Leave empty to count from your earliest role.' },
       {
         name: 'availability',
         label: 'Availability',

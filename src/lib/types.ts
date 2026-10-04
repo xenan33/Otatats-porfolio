@@ -10,6 +10,7 @@ export type Profile = {
   profile_image_url: string | null;
   resume_url: string | null;
   target_role: string | null;
+  years_experience: number | null;
   availability: 'open' | 'projects' | 'offers' | 'closed';
 };
 
