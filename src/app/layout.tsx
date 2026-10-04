@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { IBM_Plex_Mono, IBM_Plex_Sans, Sora } from 'next/font/google';
 import { SITE_URL } from '@/lib/env';
 import './globals.css';
@@ -10,7 +10,12 @@ const plexMono = IBM_Plex_Mono({ variable: '--font-plex-mono', subsets: ['latin'
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: 'Otatats · Portfolio', template: '%s · Otatats' },
+  // Browser night modes (Brave, Dark Reader) half-darken the page and wash out the cards; keep the designed look.
+  other: { 'darkreader-lock': 'true' },
 };
+
+// "only light" also tells Chrome's and Samsung's auto-dark not to recolour the page.
+export const viewport: Viewport = { colorScheme: 'only light', themeColor: '#071a33' };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (

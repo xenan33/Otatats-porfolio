@@ -130,7 +130,7 @@ export const SEASON_THEME: Record<Season, Theme> = {
   sysadmin: { accent: '#0a68e6', aurora: ['#0b3b7a', '#0a68e6', '#10b981'], greeting: 'Happy SysAdmin Day' },
   heroes: { accent: '#0038a8', aurora: FLAG, greeting: 'Happy National Heroes Day' },
   bermonths: { accent: '#15803d', aurora: ['#065f46', '#0a68e6', '#15803d'], greeting: 'Christmas countdown' },
-  halloween: { accent: '#c2410c', aurora: ['#4c1d95', '#ea580c', '#7c3aed'], greeting: 'Happy Halloween' },
+  halloween: { accent: '#6d28d9', aurora: ['#4c1d95', '#7c3aed', '#c026d3'], greeting: 'Happy Halloween' },
   bonifacio: { accent: '#0038a8', aurora: FLAG, greeting: 'Bonifacio Day' },
   christmas: { accent: '#b91c1c', aurora: ['#065f46', '#0a68e6', '#b91c1c'], greeting: 'Maligayang Pasko' },
 };
