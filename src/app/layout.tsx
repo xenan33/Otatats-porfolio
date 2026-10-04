@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { IBM_Plex_Mono, IBM_Plex_Sans, Sora } from 'next/font/google';
 import { SITE_URL } from '@/lib/env';
 import './globals.css';
 
-const inter = Inter({ variable: '--font-inter', subsets: ['latin'] });
-const jetbrains = JetBrains_Mono({ variable: '--font-jetbrains', subsets: ['latin'] });
+const sora = Sora({ variable: '--font-sora', subsets: ['latin'], weight: ['500', '600', '700'] });
+const plex = IBM_Plex_Sans({ variable: '--font-plex', subsets: ['latin'], weight: ['400', '500', '600'] });
+const plexMono = IBM_Plex_Mono({ variable: '--font-plex-mono', subsets: ['latin'], weight: ['400', '500'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrains.variable} h-full antialiased`}>
+    <html lang="en" className={`${sora.variable} ${plex.variable} ${plexMono.variable} h-full antialiased`}>
       <body className="min-h-full">{children}</body>
     </html>
   );

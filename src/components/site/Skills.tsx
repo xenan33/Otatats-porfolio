@@ -2,13 +2,7 @@ import SpotlightCard from '@/components/reactbits/SpotlightCard';
 import type { Skill } from '@/lib/types';
 import { Section, rgba } from './ui';
 
-const ICONS: Record<string, string> = {
-  Cybersecurity: '🛡',
-  'Identity & Cloud': '☁',
-  Infrastructure: '🖧',
-  Automation: '⚙',
-  Leadership: '◎',
-};
+const ORDER = ['Cybersecurity', 'Identity & Cloud', 'Infrastructure', 'Automation', 'Leadership'];
 
 export default function Skills({ skills, accent }: { skills: Skill[]; accent: string }) {
   if (!skills.length) return null;
@@ -17,28 +11,39 @@ export default function Skills({ skills, accent }: { skills: Skill[]; accent: st
     const key = s.category ?? 'Other';
     groups.set(key, [...(groups.get(key) ?? []), s]);
   }
+  const rank = (c: string) => (ORDER.includes(c) ? ORDER.indexOf(c) : ORDER.length);
+  const sorted = [...groups].sort(([a], [b]) => rank(a) - rank(b));
+
   return (
-    <Section id="skills" label="ls ./skills" title="Skills">
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {[...groups].map(([category, items]) => (
-          <SpotlightCard key={category} spotlightColor={rgba(accent, 0.18)} className="!rounded-2xl !border-line !bg-surface/90 !p-6">
-            <h3 className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider text-accent">
-              <span aria-hidden="true">{ICONS[category] ?? '▸'}</span>
-              {category}
-            </h3>
-            <ul className="mt-5 space-y-3">
-              {items.map((s) => (
-                <li key={s.id} className="flex items-start justify-between gap-3 text-sm">
-                  <span className="text-ink/90">{s.name}</span>
-                  {s.proficiency_label && (
-                    <span className="shrink-0 font-mono text-[11px] uppercase text-muted">{s.proficiency_label}</span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </SpotlightCard>
-        ))}
-      </div>
-    </Section>
+    <div className="bg-surface">
+      <Section
+        id="expertise"
+        eyebrow="Expertise"
+        title="What I work with"
+        intro="Tools and practices from day-to-day MSP and security work. Skills marked Expert are the ones I lead on."
+      >
+        <div className="gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5 [&>*]:break-inside-avoid">
+          {sorted.map(([category, items]) => (
+            <SpotlightCard
+              key={category}
+              spotlightColor={rgba(accent, 0.1)}
+              className="!rounded-2xl !border-line !bg-white !p-6 shadow-[0_1px_2px_rgba(7,26,51,0.04)]"
+            >
+              <h3 className="font-display text-lg font-semibold text-ink">{category}</h3>
+              <ul className="mt-4 divide-y divide-line">
+                {items.map((s) => (
+                  <li key={s.id} className="flex items-center justify-between gap-3 py-2.5 text-[15px]">
+                    <span className="text-ink/85">{s.name}</span>
+                    {s.proficiency_label === 'Expert' && (
+                      <span className="shrink-0 rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-semibold text-accent-2">Expert</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </SpotlightCard>
+          ))}
+        </div>
+      </Section>
+    </div>
   );
 }

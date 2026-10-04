@@ -54,7 +54,7 @@ export type Education = { id: number; degree: string; school: string; location: 
 
 export type SiteSettings = {
   accent: string;
-  background_effect: 'letter-glitch' | 'dot-grid' | 'none';
+  background_effect: 'aurora' | 'none';
   show_email: boolean;
   show_phone: boolean;
   show_contact_form: boolean;

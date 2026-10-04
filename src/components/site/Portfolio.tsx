@@ -1,9 +1,7 @@
 import type { PortfolioData } from '@/lib/types';
 import About from './About';
-import Background from './Background';
 import Contact from './Contact';
 import Credentials from './Credentials';
-import CursorEffect from './CursorEffect';
 import Experience from './Experience';
 import Footer from './Footer';
 import Hero from './Hero';
@@ -19,22 +17,20 @@ export default function Portfolio({ data, phone }: { data: PortfolioData; phone:
 
   if (!profile) {
     return (
-      <main className="grid min-h-screen place-items-center p-6 font-mono text-sm text-muted">
-        <p>[ .. ] Portfolio content is not published yet.</p>
+      <main className="grid min-h-screen place-items-center p-6 text-sm text-muted">
+        <p>The portfolio isn&apos;t published yet.</p>
       </main>
     );
   }
 
   return (
     <div style={{ '--accent': accent } as React.CSSProperties}>
-      <Background effect={settings.background_effect} accent={accent} />
-      <CursorEffect color={accent} />
-      <Nav resumeUrl={profile.resume_url} />
+      <Nav name={profile.name} resumeUrl={profile.resume_url} />
       <main>
-        <Hero profile={profile} accent={accent} />
-        <About data={data} />
+        <Hero data={data} animated={settings.background_effect !== 'none'} />
+        <About profile={profile} />
         <Skills skills={data.skills} accent={accent} />
-        <Experience roles={data.experience} accent={accent} />
+        <Experience roles={data.experience} />
         <Credentials certifications={data.certifications} education={data.education} />
         <Projects projects={data.projects} accent={accent} />
         <Contact data={data} phone={phone} />

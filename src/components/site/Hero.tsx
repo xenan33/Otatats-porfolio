@@ -1,95 +1,100 @@
-import DecryptedText from '@/components/reactbits/DecryptedText';
+import BlurText from '@/components/reactbits/BlurText';
+import CountUp from '@/components/reactbits/CountUp';
 import ShinyText from '@/components/reactbits/ShinyText';
-import StarBorder from '@/components/reactbits/StarBorder';
-import TextType from '@/components/reactbits/TextType';
-import type { Profile } from '@/lib/types';
+import type { PortfolioData } from '@/lib/types';
+import HeroBackdrop from './HeroBackdrop';
+import { yearsSince } from './ui';
 
-const AVAILABILITY: Record<Profile['availability'], string | null> = {
+// Same focus areas as the email signature.
+const FOCUS = ['Microsoft 365', 'Infrastructure', 'Cybersecurity', 'Automation & Development'];
+
+const AVAILABILITY: Record<string, string | null> = {
   open: 'Open to work',
   offers: 'Open to offers',
   closed: null,
 };
 
-// Mirrors the tagline in the owner's email signature.
-const ROTATING = ['Microsoft 365', 'Infrastructure', 'Cybersecurity', 'Automation & Development'];
-
-export default function Hero({ profile, accent }: { profile: Profile; accent: string }) {
+export default function Hero({ data, animated }: { data: PortfolioData; animated: boolean }) {
+  const { profile, experience, certifications } = data;
+  if (!profile) return null;
   const availability = AVAILABILITY[profile.availability];
-  return (
-    <section className="mx-auto grid min-h-[86vh] w-full max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.3fr_1fr]">
-      <div>
-        {availability && (
-          <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 font-mono text-xs">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
-            <ShinyText text={`${availability}${profile.target_role ? ` · ${profile.target_role}` : ''}`} color="#0b3b7a" shineColor="#7fb4ff" speed={3} />
-          </p>
-        )}
-        <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-          <DecryptedText
-            text={profile.name}
-            animateOn="view"
-            sequential
-            speed={40}
-            revealDirection="start"
-            characters="01ABCDEF#$%&*<>/"
-            className="text-ink"
-            encryptedClassName="text-accent"
-          />
-        </h1>
-        {profile.headline && <p className="mt-4 text-lg text-muted sm:text-xl">{profile.headline}</p>}
-        <div className="mt-4 h-8 font-mono text-base text-accent sm:text-lg">
-          <TextType text={ROTATING} typingSpeed={45} deletingSpeed={25} pauseDuration={1800} cursorCharacter="▋" as="span" />
-        </div>
-        <div className="mt-10 flex flex-wrap gap-4">
-          <StarBorder as="a" href="#experience" color={accent} speed="5s" backgroundColor="#071a33" borderColor="#1c3150" textColor="#ffffff" className="cursor-target">
-            <span className="font-mono text-sm">./view_experience</span>
-          </StarBorder>
-          <a
-            href="#contact"
-            className="cursor-target inline-flex items-center rounded-[20px] border border-line px-6 py-4 font-mono text-sm text-muted transition-colors hover:border-accent/60 hover:text-ink"
-          >
-            ./contact
-          </a>
-        </div>
-      </div>
-      <Terminal profile={profile} />
-    </section>
-  );
-}
+  const current = experience.find((e) => e.current) ?? experience[0];
+  const earliest = experience.reduce<string | null>((min, e) => (!min || e.start_date < min ? e.start_date : min), null);
+  const years = earliest ? yearsSince(earliest) : 0;
 
-function Terminal({ profile }: { profile: Profile }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-navy-line bg-navy text-white shadow-2xl shadow-navy/25">
-      <div className="flex items-center gap-2 border-b border-navy-line px-4 py-2.5">
-        <span className="h-3 w-3 rounded-full bg-danger/80" />
-        <span className="h-3 w-3 rounded-full bg-amber-400/80" />
-        <span className="h-3 w-3 rounded-full bg-emerald-400/80" />
-        <span className="ml-3 font-mono text-xs text-white/55">jamo@otatats: ~</span>
-      </div>
-      <div className="space-y-3 p-5 font-mono text-[13px] leading-relaxed">
-        <p>
-          <span className="text-[#7fb4ff]">$</span> whoami
-        </p>
-        <p className="text-white/90">{profile.name}</p>
-        <p>
-          <span className="text-[#7fb4ff]">$</span> cat role.txt
-        </p>
-        <p className="text-white/90">{profile.headline}</p>
-        {profile.location && (
-          <>
-            <p>
-              <span className="text-[#7fb4ff]">$</span> locate
+    <section className="relative overflow-hidden bg-navy text-white">
+      <HeroBackdrop animated={animated} />
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-20 pt-16 sm:px-6 lg:grid-cols-[1.4fr_1fr] lg:pb-28 lg:pt-24">
+        <div>
+          {availability && (
+            <p className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              </span>
+              <ShinyText
+                text={`${availability}${profile.target_role ? ` · ${profile.target_role}` : ''}`}
+                color="#c7dcf7"
+                shineColor="#ffffff"
+                speed={3}
+              />
             </p>
-            <p className="text-white/90">{profile.location}</p>
-          </>
-        )}
-        <p>
-          <span className="text-[#7fb4ff]">$</span> systemctl status security
-        </p>
-        <p className="text-[#7fb4ff]">
-          [ OK ] <span className="text-white/90">monitoring · incident response · hardening</span>
-        </p>
+          )}
+          <h1 className="mt-7 text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
+            <BlurText text={profile.name} animateBy="words" delay={120} direction="bottom" />
+          </h1>
+          {profile.headline && <p className="mt-5 font-display text-xl font-medium text-sky sm:text-2xl">{profile.headline}</p>}
+          <ul className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-[15px] text-white/70">
+            {FOCUS.map((f, i) => (
+              <li key={f} className="flex items-center gap-3">
+                {i > 0 && <span aria-hidden="true" className="h-1 w-1 rounded-full bg-accent" />}
+                {f}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <a href="#experience" className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-navy">
+              View experience
+            </a>
+            <a href="#contact" className="rounded-full border border-white/25 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white/10">
+              Get in touch
+            </a>
+          </div>
+        </div>
+
+        <aside aria-label="Snapshot" className="rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-sm sm:p-7">
+          {current && (
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky">{current.current ? 'Currently' : 'Most recently'}</p>
+              <p className="mt-2 font-display text-lg font-semibold leading-snug">{current.title}</p>
+              <p className="text-sm text-white/65">{current.company}</p>
+            </div>
+          )}
+          <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-white/10">
+            <div className="flex flex-col-reverse bg-navy-2/80 p-4">
+              <dt className="mt-1 text-sm text-white/65">years in IT</dt>
+              <dd className="font-display text-3xl font-semibold tabular-nums">
+                <CountUp to={years} duration={1.4} />+
+              </dd>
+            </div>
+            <div className="flex flex-col-reverse bg-navy-2/80 p-4">
+              <dt className="mt-1 text-sm text-white/65">certifications</dt>
+              <dd className="font-display text-3xl font-semibold tabular-nums">
+                <CountUp to={certifications.length} duration={1.4} />
+              </dd>
+            </div>
+          </dl>
+          {profile.location && (
+            <p className="mt-6 flex items-start gap-2 text-sm text-white/75">
+              <svg viewBox="0 0 20 20" aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 fill-sky">
+                <path d="M10 1.5a6.5 6.5 0 0 0-6.5 6.5c0 4.6 6.5 10.5 6.5 10.5s6.5-5.9 6.5-10.5A6.5 6.5 0 0 0 10 1.5Zm0 9a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" />
+              </svg>
+              {profile.location}
+            </p>
+          )}
+        </aside>
       </div>
-    </div>
+    </section>
   );
 }

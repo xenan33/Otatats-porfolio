@@ -1,57 +1,49 @@
 import type { PortfolioData } from '@/lib/types';
 import ContactForm from './ContactForm';
-import { Section } from './ui';
 
 export default function Contact({ data, phone }: { data: PortfolioData; phone: string | null }) {
   const { profile, settings } = data;
+  const links = [
+    settings.show_email && profile?.email ? { label: 'Email', value: profile.email, href: `mailto:${profile.email}` } : null,
+    phone ? { label: 'Phone', value: phone, href: `tel:${phone.replace(/\s/g, '')}` } : null,
+    profile?.linkedin_url
+      ? { label: 'LinkedIn', value: profile.linkedin_url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''), href: profile.linkedin_url }
+      : null,
+    profile?.github_url ? { label: 'GitHub', value: profile.github_url.replace(/^https?:\/\/(www\.)?/, ''), href: profile.github_url } : null,
+  ].filter((l): l is { label: string; value: string; href: string } => l !== null);
+
   return (
-    <Section id="contact" label="ssh contact@otatats" title="Get in touch">
-      <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
-        <div className="space-y-4">
-          <p className="text-ink/85">
-            Hiring for security, infrastructure or IT operations? I&apos;d like to hear about it.
+    <section id="contact" className="scroll-mt-20 px-4 pb-20 sm:px-6 lg:pb-24">
+      <div className="mx-auto grid max-w-6xl gap-10 overflow-hidden rounded-3xl bg-navy p-8 text-white sm:p-12 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky">Contact</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Let&apos;s talk</h2>
+          <p className="mt-4 max-w-[46ch] leading-relaxed text-white/75">
+            Hiring for security, infrastructure or IT operations? Send a message and I&apos;ll get back to you.
           </p>
-          <ul className="space-y-3 font-mono text-sm">
-            {settings.show_email && profile?.email && (
-              <li>
-                <span className="text-muted">email </span>
-                <a href={`mailto:${profile.email}`} className="cursor-target text-accent hover:underline">
-                  {profile.email}
-                </a>
-              </li>
-            )}
-            {phone && (
-              <li>
-                <span className="text-muted">phone </span>
-                <a href={`tel:${phone.replace(/\s/g, '')}`} className="cursor-target text-accent hover:underline">
-                  {phone}
-                </a>
-              </li>
-            )}
-            {profile?.linkedin_url && (
-              <li>
-                <span className="text-muted">linkedin </span>
-                <a href={profile.linkedin_url} target="_blank" rel="noopener noreferrer" className="cursor-target text-accent hover:underline">
-                  {profile.linkedin_url.replace(/^https?:\/\/(www\.)?/, '')}
-                </a>
-              </li>
-            )}
-            {profile?.github_url && (
-              <li>
-                <span className="text-muted">github </span>
-                <a href={profile.github_url} target="_blank" rel="noopener noreferrer" className="cursor-target text-accent hover:underline">
-                  {profile.github_url.replace(/^https?:\/\/(www\.)?/, '')}
-                </a>
-              </li>
-            )}
-          </ul>
+          <dl className="mt-8 space-y-4">
+            {links.map((l) => (
+              <div key={l.label}>
+                <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-white/50">{l.label}</dt>
+                <dd className="mt-1">
+                  <a
+                    href={l.href}
+                    {...(l.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    className="break-all text-[15px] font-medium text-white underline decoration-white/25 underline-offset-4 hover:decoration-sky"
+                  >
+                    {l.value}
+                  </a>
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
         {settings.show_contact_form && (
-          <div className="relative rounded-2xl border border-line bg-surface/90 p-6">
+          <div className="relative rounded-2xl bg-white p-6 text-ink sm:p-8">
             <ContactForm />
           </div>
         )}
       </div>
-    </Section>
+    </section>
   );
 }

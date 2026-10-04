@@ -165,7 +165,7 @@ Managed in `/admin/settings`:
 - Show/hide: phone number, email, location precision (city vs country), availability badge, contact form.
 - Availability status: `Open to work` / `Open to offers` / `Not looking`.
 - Target role text (default: "IT Security & Infrastructure Officer").
-- Accent colour: Signature blue `#0a6ff0` (default), Deep navy `#0b3b7a`, Teal `#0e7490`.
+- Accent colour: Signature blue `#0a68e6` (default), Deep navy `#0b3b7a`, Teal `#0e7490`. Hero background: aurora or plain navy.
 - Background effect: FaultyTerminal / LetterGlitch / DotGrid / none.
 - SEO: page title, meta description, Open Graph image.
 - **Recruiter share links** (`/r/[token]`): create a link per recruiter/company, optional expiry, can reveal phone number, records view count and last viewed. Revoke anytime.
@@ -335,7 +335,7 @@ create table portfolio.audit_log (
 ## 9. Visual design
 
 - **Mode:** dark by default, optional light toggle.
-- **Palette (matches the email signature, light theme):** background `#f6f8fb`, surface `#ffffff`, border `#dbe2ec`, text/navy `#071a33`, muted `#55657c`, accent (default) `#0a6ff0`, secondary `#0b3b7a`, danger `#dc2626`. The hero terminal stays a navy panel.
+- **Look (redesign, 2026-10-04):** clean and professional, no Matrix/terminal effects. Navy hero and contact bands around a white page; palette from the email signature: navy `#071a33`, signature blue `#0a68e6` (AA-safe), surface `#f4f7fb`, border `#dce4ee`, muted `#52627a`. Type: Sora (headings), IBM Plex Sans (body), IBM Plex Mono (dates). React Bits: Aurora (hero background), BlurText (name), ShinyText (availability), CountUp (snapshot), SpotlightCard (expertise, projects). Experience is grouped by employer.
 - **Type:** headings `JetBrains Mono` or `Space Grotesk`; body `Inter`. Monospace used for labels, tags, dates.
 - **Motifs:** terminal prompts, `[ OK ]` status tags, scanlines kept very faint, shield/lock/gear icons (lucide-react).
 - **Motion rules:** max one heavy WebGL background per page; respect `prefers-reduced-motion` (swap to static gradient); lazy-load React Bits components below the fold with `next/dynamic`.

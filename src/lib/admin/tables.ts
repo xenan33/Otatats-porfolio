@@ -188,19 +188,18 @@ export const TABLES: Record<string, TableConfig> = {
         label: 'Accent colour',
         type: 'select',
         options: [
-          { value: '#0a6ff0', label: 'Signature blue' },
+          { value: '#0a68e6', label: 'Signature blue' },
           { value: '#0b3b7a', label: 'Deep navy' },
           { value: '#0e7490', label: 'Teal' },
         ],
       },
       {
         name: 'background_effect',
-        label: 'Background',
+        label: 'Hero background',
         type: 'select',
         options: [
-          { value: 'letter-glitch', label: 'Letter glitch (animated)' },
-          { value: 'dot-grid', label: 'Dot grid (static)' },
-          { value: 'none', label: 'None' },
+          { value: 'aurora', label: 'Animated aurora behind the hero' },
+          { value: 'none', label: 'Plain navy' },
         ],
       },
       { name: 'seo_title', label: 'Search title', type: 'text' },

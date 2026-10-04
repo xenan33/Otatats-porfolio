@@ -7,7 +7,7 @@ Full spec: [`PORTFOLIO_SPEC.md`](./PORTFOLIO_SPEC.md).
 ## Stack
 
 - Next.js 16 (App Router, TypeScript) + Tailwind CSS v4
-- React Bits (vendored in `src/components/reactbits/`): DecryptedText, TextType, ShinyText, StarBorder, SpotlightCard, CountUp, LetterGlitch, TargetCursor
+- React Bits (vendored in `src/components/reactbits/`): Aurora, BlurText, ShinyText, SpotlightCard, CountUp
 - Supabase `shared-backend` project, **`portfolio` schema only** (the `inner_mirror` schema belongs to Codex and is never touched)
 - Hosting: Vercel
 

@@ -1,55 +1,34 @@
 import Image from 'next/image';
-import CountUp from '@/components/reactbits/CountUp';
-import type { PortfolioData } from '@/lib/types';
+import type { Profile } from '@/lib/types';
 import { Section } from './ui';
 
-export default function About({ data }: { data: PortfolioData }) {
-  const { profile, experience, certifications, skills } = data;
-  if (!profile) return null;
-  const earliest = experience.reduce<string | null>((min, e) => (!min || e.start_date < min ? e.start_date : min), null);
-  const years = earliest ? yearsSince(earliest) : 0;
-
-  const stats = [
-    { value: years, suffix: '+', label: 'years in IT' },
-    { value: experience.length, suffix: '', label: 'roles' },
-    { value: certifications.length, suffix: '', label: 'certifications' },
-    { value: skills.length, suffix: '', label: 'core skills' },
-  ];
-
+export default function About({ profile }: { profile: Profile }) {
+  if (!profile.bio) return null;
   return (
-    <Section id="about" label="cat about.md" title="About">
-      <div className="grid gap-10 lg:grid-cols-[auto_1fr]">
-        {profile.profile_image_url && (
-          <Image
-            src={profile.profile_image_url}
-            alt={profile.name}
-            width={220}
-            height={220}
-            className="h-[220px] w-[220px] rounded-2xl border border-line object-cover"
-          />
-        )}
-        <div>
-          <p className="max-w-3xl text-lg leading-relaxed text-ink/85">{profile.bio}</p>
-          <dl className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {stats.map((s) => (
-              <div key={s.label} className="rounded-xl border border-line bg-surface/80 p-5">
-                <dt className="sr-only">{s.label}</dt>
-                <dd className="font-mono text-3xl font-semibold text-accent">
-                  <CountUp to={s.value} duration={1.5} />
-                  {s.suffix}
-                </dd>
-                <p className="mt-1 text-sm text-muted" aria-hidden="true">
-                  {s.label}
-                </p>
-              </div>
-            ))}
-          </dl>
+    <Section id="about" eyebrow="About" title="Keeping businesses running, and keeping them secure">
+      <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
+        <div className="flex flex-col gap-8 sm:flex-row sm:items-start">
+          {profile.profile_image_url && (
+            <Image
+              src={profile.profile_image_url}
+              alt={profile.name}
+              width={160}
+              height={160}
+              className="h-40 w-40 shrink-0 rounded-2xl object-cover"
+            />
+          )}
+          <p className="max-w-[62ch] text-lg leading-relaxed text-ink/85">{profile.bio}</p>
         </div>
+        {profile.target_role && (
+          <div className="self-start rounded-2xl border border-line bg-surface p-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">Looking for</p>
+            <p className="mt-3 font-display text-xl font-semibold leading-snug text-ink">{profile.target_role}</p>
+            <a href="#contact" className="mt-5 inline-flex text-sm font-semibold text-accent hover:text-accent-2">
+              Start a conversation →
+            </a>
+          </div>
+        )}
       </div>
     </Section>
   );
-}
-
-function yearsSince(date: string) {
-  return Math.floor((Date.now() - new Date(date).getTime()) / (365.25 * 86_400_000));
 }
