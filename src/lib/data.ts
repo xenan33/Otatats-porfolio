@@ -9,6 +9,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   show_email: true,
   show_phone: false,
   show_contact_form: true,
+  seasonal_themes: true,
   seo_title: null,
   seo_description: null,
   og_image_url: null,

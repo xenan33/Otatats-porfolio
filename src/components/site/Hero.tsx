@@ -1,7 +1,9 @@
 import BlurText from '@/components/reactbits/BlurText';
 import CountUp from '@/components/reactbits/CountUp';
 import type { PortfolioData } from '@/lib/types';
+import { SEASON_THEME, type Season } from '@/lib/season';
 import HeroBackdrop from './HeroBackdrop';
+import HeroSeasonal from './seasonal/HeroSeasonal';
 import { yearsSince } from './ui';
 
 // Same focus areas as the email signature.
@@ -15,7 +17,7 @@ const AVAILABILITY: Record<string, { badge: string; note: (role: string | null) 
   closed: null,
 };
 
-export default function Hero({ data, animated }: { data: PortfolioData; animated: boolean }) {
+export default function Hero({ data, animated, season }: { data: PortfolioData; animated: boolean; season: Season | null }) {
   const { profile, experience, certifications } = data;
   if (!profile) return null;
   const availability = AVAILABILITY[profile.availability];
@@ -26,7 +28,8 @@ export default function Hero({ data, animated }: { data: PortfolioData; animated
 
   return (
     <section className="relative overflow-hidden bg-navy text-white">
-      <HeroBackdrop animated={animated} />
+      <HeroBackdrop animated={animated} colors={season ? SEASON_THEME[season].aurora : undefined} />
+      {season && <HeroSeasonal season={season} />}
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-20 pt-16 sm:px-6 lg:grid-cols-[1.4fr_1fr] lg:pb-28 lg:pt-24">
         <div>
           {availability && (
@@ -39,6 +42,9 @@ export default function Hero({ data, animated }: { data: PortfolioData; animated
                 {availability.badge}
               </span>
               {note && <span className="text-white/80">{note}</span>}
+              {season && (
+                <span className="rounded-full border border-white/20 px-3 py-1 font-semibold text-white">{SEASON_THEME[season].greeting}</span>
+              )}
             </div>
           )}
           <h1 className="mt-7 text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">

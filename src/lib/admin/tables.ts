@@ -186,6 +186,12 @@ export const TABLES: Record<string, TableConfig> = {
       { name: 'show_phone', label: 'Show phone number publicly', type: 'boolean' },
       { name: 'show_contact_form', label: 'Show contact form', type: 'boolean' },
       {
+        name: 'seasonal_themes',
+        label: 'Seasonal themes',
+        type: 'boolean',
+        help: 'Halloween in October, snow in December, fireworks from 31 Dec to 7 Jan (Philippine time).',
+      },
+      {
         name: 'accent',
         label: 'Accent colour',
         type: 'select',

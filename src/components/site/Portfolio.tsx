@@ -1,3 +1,4 @@
+import { SEASON_THEME, type Season } from '@/lib/season';
 import type { PortfolioData } from '@/lib/types';
 import About from './About';
 import Contact from './Contact';
@@ -8,12 +9,13 @@ import Hero from './Hero';
 import Nav from './Nav';
 import Projects from './Projects';
 import Skills from './Skills';
+import SeasonalEffects from './seasonal/SeasonalEffects';
 
 // The full one-page portfolio. `phone` is only passed when settings or a
 // recruiter share link allow it.
-export default function Portfolio({ data, phone }: { data: PortfolioData; phone: string | null }) {
+export default function Portfolio({ data, phone, season = null }: { data: PortfolioData; phone: string | null; season?: Season | null }) {
   const { profile, settings } = data;
-  const accent = settings.accent;
+  const accent = season ? SEASON_THEME[season].accent : settings.accent;
 
   if (!profile) {
     return (
@@ -25,9 +27,10 @@ export default function Portfolio({ data, phone }: { data: PortfolioData; phone:
 
   return (
     <div style={{ '--accent': accent } as React.CSSProperties}>
+      {season && <SeasonalEffects season={season} />}
       <Nav name={profile.name} resumeUrl={profile.resume_url} />
       <main>
-        <Hero data={data} animated={settings.background_effect !== 'none'} />
+        <Hero data={data} animated={settings.background_effect !== 'none'} season={season} />
         <About profile={profile} />
         <Skills skills={data.skills} accent={accent} />
         <Experience roles={data.experience} />

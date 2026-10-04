@@ -72,3 +72,11 @@ h1, h2, h3 {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+@keyframes bat-fly {
+  0% { transform: translate(0, 0) scaleY(1); }
+  25% { transform: translate(30vw, -20px) scaleY(0.6); }
+  50% { transform: translate(60vw, 10px) scaleY(1); }
+  75% { transform: translate(90vw, -15px) scaleY(0.6); }
+  100% { transform: translate(120vw, 0) scaleY(1); }
+}

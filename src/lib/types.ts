@@ -59,6 +59,7 @@ export type SiteSettings = {
   show_email: boolean;
   show_phone: boolean;
   show_contact_form: boolean;
+  seasonal_themes: boolean;
   seo_title: string | null;
   seo_description: string | null;
   og_image_url: string | null;
