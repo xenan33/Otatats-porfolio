@@ -1,15 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0a0f0d;
-  --surface: #111915;
-  --surface-2: #16211b;
-  --border: #1f2a24;
-  --text: #e5f5ec;
-  --muted: #8aa395;
-  --accent: #22c55e;
-  --accent-2: #06b6d4;
-  --danger: #ef4444;
+  /* Matches the email signature: white, navy ink, signature blue. */
+  --bg: #f6f8fb;
+  --surface: #ffffff;
+  --surface-2: #eef2f8;
+  --border: #dbe2ec;
+  --text: #071a33;
+  --muted: #55657c;
+  --accent: #0a6ff0;
+  --accent-2: #0b3b7a;
+  --danger: #dc2626;
+  --navy: #071a33;
+  --navy-line: #1c3150;
 }
 
 @theme inline {
@@ -22,6 +25,8 @@
   --color-accent: var(--accent);
   --color-accent-2: var(--accent-2);
   --color-danger: var(--danger);
+  --color-navy: var(--navy);
+  --color-navy-line: var(--navy-line);
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
 
@@ -40,7 +45,7 @@
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -50,7 +55,7 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--accent) 35%, transparent);
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 :focus-visible {
@@ -59,7 +64,7 @@ body {
 }
 
 .dot-grid {
-  background-image: radial-gradient(color-mix(in srgb, var(--accent) 22%, transparent) 1px, transparent 1px);
+  background-image: radial-gradient(color-mix(in srgb, var(--accent) 18%, transparent) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 

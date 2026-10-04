@@ -4,7 +4,7 @@ import { createPublicClient } from '@/lib/supabase/public';
 import type { PortfolioData, Project, SiteSettings } from '@/lib/types';
 
 export const DEFAULT_SETTINGS: SiteSettings = {
-  accent: '#22c55e',
+  accent: '#0a6ff0',
   background_effect: 'letter-glitch',
   show_email: true,
   show_phone: false,

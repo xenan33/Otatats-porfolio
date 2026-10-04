@@ -25,7 +25,7 @@ export default function Experience({ roles, accent }: { roles: Role[]; accent: s
                 </div>
                 <p className="font-mono text-xs text-muted">
                   {r.current ? (
-                    <ShinyText text="CURRENT" color={accent} shineColor="#ffffff" speed={2.5} className="mr-2 font-semibold" />
+                    <ShinyText text="CURRENT" color={accent} shineColor="#7fb4ff" speed={2.5} className="mr-2 font-semibold" />
                   ) : null}
                   {formatMonth(r.start_date)} – {r.current ? 'Present' : formatMonth(r.end_date)}
                 </p>

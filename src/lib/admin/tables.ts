@@ -188,9 +188,9 @@ export const TABLES: Record<string, TableConfig> = {
         label: 'Accent colour',
         type: 'select',
         options: [
-          { value: '#22c55e', label: 'Matrix green' },
-          { value: '#06b6d4', label: 'Cyber cyan' },
-          { value: '#f59e0b', label: 'Alert amber' },
+          { value: '#0a6ff0', label: 'Signature blue' },
+          { value: '#0b3b7a', label: 'Deep navy' },
+          { value: '#0e7490', label: 'Teal' },
         ],
       },
       {

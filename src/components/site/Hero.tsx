@@ -21,7 +21,7 @@ export default function Hero({ profile, accent }: { profile: Profile; accent: st
         {availability && (
           <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 font-mono text-xs">
             <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
-            <ShinyText text={`${availability}${profile.target_role ? ` · ${profile.target_role}` : ''}`} color="#b6e8c8" shineColor="#ffffff" speed={3} />
+            <ShinyText text={`${availability}${profile.target_role ? ` · ${profile.target_role}` : ''}`} color="#0b3b7a" shineColor="#7fb4ff" speed={3} />
           </p>
         )}
         <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
@@ -41,7 +41,7 @@ export default function Hero({ profile, accent }: { profile: Profile; accent: st
           <TextType text={ROTATING} typingSpeed={45} deletingSpeed={25} pauseDuration={1800} cursorCharacter="▋" as="span" />
         </div>
         <div className="mt-10 flex flex-wrap gap-4">
-          <StarBorder as="a" href="#experience" color={accent} speed="5s" backgroundColor="#0d1511" borderColor="#1f2a24" textColor="#e5f5ec" className="cursor-target">
+          <StarBorder as="a" href="#experience" color={accent} speed="5s" backgroundColor="#071a33" borderColor="#1c3150" textColor="#ffffff" className="cursor-target">
             <span className="font-mono text-sm">./view_experience</span>
           </StarBorder>
           <a
@@ -59,35 +59,35 @@ export default function Hero({ profile, accent }: { profile: Profile; accent: st
 
 function Terminal({ profile }: { profile: Profile }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-line bg-surface/90 shadow-2xl shadow-black/40">
-      <div className="flex items-center gap-2 border-b border-line px-4 py-2.5">
+    <div className="overflow-hidden rounded-xl border border-navy-line bg-navy text-white shadow-2xl shadow-navy/25">
+      <div className="flex items-center gap-2 border-b border-navy-line px-4 py-2.5">
         <span className="h-3 w-3 rounded-full bg-danger/80" />
         <span className="h-3 w-3 rounded-full bg-amber-400/80" />
-        <span className="h-3 w-3 rounded-full bg-accent/80" />
-        <span className="ml-3 font-mono text-xs text-muted">jamo@otatats: ~</span>
+        <span className="h-3 w-3 rounded-full bg-emerald-400/80" />
+        <span className="ml-3 font-mono text-xs text-white/55">jamo@otatats: ~</span>
       </div>
       <div className="space-y-3 p-5 font-mono text-[13px] leading-relaxed">
         <p>
-          <span className="text-accent">$</span> whoami
+          <span className="text-[#7fb4ff]">$</span> whoami
         </p>
-        <p className="text-ink/90">{profile.name}</p>
+        <p className="text-white/90">{profile.name}</p>
         <p>
-          <span className="text-accent">$</span> cat role.txt
+          <span className="text-[#7fb4ff]">$</span> cat role.txt
         </p>
-        <p className="text-ink/90">{profile.headline}</p>
+        <p className="text-white/90">{profile.headline}</p>
         {profile.location && (
           <>
             <p>
-              <span className="text-accent">$</span> locate
+              <span className="text-[#7fb4ff]">$</span> locate
             </p>
-            <p className="text-ink/90">{profile.location}</p>
+            <p className="text-white/90">{profile.location}</p>
           </>
         )}
         <p>
-          <span className="text-accent">$</span> systemctl status security
+          <span className="text-[#7fb4ff]">$</span> systemctl status security
         </p>
-        <p className="text-accent">
-          [ OK ] <span className="text-ink/90">monitoring · incident response · hardening</span>
+        <p className="text-[#7fb4ff]">
+          [ OK ] <span className="text-white/90">monitoring · incident response · hardening</span>
         </p>
       </div>
     </div>

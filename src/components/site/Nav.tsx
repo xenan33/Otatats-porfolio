@@ -12,8 +12,11 @@ export default function Nav({ resumeUrl }: { resumeUrl: string | null }) {
   return (
     <header className="sticky top-0 z-40 border-b border-line/60 bg-bg/70 backdrop-blur">
       <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <Link href="/" className="cursor-target font-mono text-sm font-semibold text-accent">
-          otatats<span className="text-muted">:~$</span>
+        <Link href="/" aria-label="John Anthony Otayco, home" className="cursor-target flex items-baseline gap-2">
+          <span className="text-xl font-extrabold tracking-tighter text-navy">
+            J<span className="text-accent">O</span>
+          </span>
+          <span className="font-mono text-xs text-muted">otatats.top</span>
         </Link>
         <ul className="hidden items-center gap-6 text-sm text-muted md:flex">
           {LINKS.map(([label, href]) => (

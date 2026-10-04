@@ -15,9 +15,11 @@ export default function Background({ effect, accent }: Props) {
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10">
       {effect === 'letter-glitch' && animate ? (
-        <div className="absolute inset-0 opacity-25">
+        <div className="absolute inset-0 opacity-15">
           <LetterGlitch
-            glitchColors={['#0f2a1c', accent, '#0e3a44']}
+            glitchColors={['#c9d6e8', accent, '#9fb3cf']}
+            lightMode
+            backgroundColor="transparent"
             glitchSpeed={60}
             centerVignette={false}
             outerVignette
