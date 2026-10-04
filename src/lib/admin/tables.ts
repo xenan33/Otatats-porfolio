@@ -54,7 +54,8 @@ export const TABLES: Record<string, TableConfig> = {
         label: 'Availability',
         type: 'select',
         options: [
-          { value: 'open', label: 'Open to work' },
+          { value: 'open', label: 'Open to work (full-time roles)' },
+          { value: 'projects', label: 'Open to projects (freelance and side work only)' },
           { value: 'offers', label: 'Open to offers' },
           { value: 'closed', label: 'Not looking' },
         ],

@@ -4,6 +4,12 @@ import { Section } from './ui';
 
 export default function About({ profile }: { profile: Profile }) {
   if (!profile.bio) return null;
+  const looking =
+    profile.availability === 'projects'
+      ? { label: 'Available for', value: 'Freelance and side projects' }
+      : profile.availability !== 'closed' && profile.target_role
+        ? { label: 'Looking for', value: profile.target_role }
+        : null;
   return (
     <Section id="about" eyebrow="About" title="Keeping businesses running, and keeping them secure">
       <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
@@ -19,10 +25,10 @@ export default function About({ profile }: { profile: Profile }) {
           )}
           <p className="max-w-[62ch] text-lg leading-relaxed text-ink/85">{profile.bio}</p>
         </div>
-        {profile.target_role && (
+        {looking && (
           <div className="self-start rounded-2xl border border-line bg-surface p-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">Looking for</p>
-            <p className="mt-3 font-display text-xl font-semibold leading-snug text-ink">{profile.target_role}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">{looking.label}</p>
+            <p className="mt-3 font-display text-xl font-semibold leading-snug text-ink">{looking.value}</p>
             <a href="#contact" className="mt-5 inline-flex text-sm font-semibold text-accent hover:text-accent-2">
               Start a conversation →
             </a>

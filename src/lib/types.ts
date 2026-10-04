@@ -10,7 +10,7 @@ export type Profile = {
   profile_image_url: string | null;
   resume_url: string | null;
   target_role: string | null;
-  availability: 'open' | 'offers' | 'closed';
+  availability: 'open' | 'projects' | 'offers' | 'closed';
 };
 
 export type Skill = { id: number; name: string; category: string | null; proficiency_label: string | null; sort_order: number };

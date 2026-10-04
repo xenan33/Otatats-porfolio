@@ -19,7 +19,9 @@ export default function Contact({ data, phone }: { data: PortfolioData; phone: s
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky">Contact</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Let&apos;s talk</h2>
           <p className="mt-4 max-w-[46ch] leading-relaxed text-white/75">
-            Hiring for security, infrastructure or IT operations? Send a message and I&apos;ll get back to you.
+            {profile?.availability === 'projects'
+              ? 'Have a project in security, infrastructure or IT operations? Send a message and I’ll get back to you.'
+              : 'Hiring for security, infrastructure or IT operations? Send a message and I’ll get back to you.'}
           </p>
           <dl className="mt-8 space-y-4">
             {links.map((l) => (

@@ -10,7 +10,7 @@ values (
   'jao@otatats.top',
   'https://www.linkedin.com/in/xenotayco/',
   'IT Security & Infrastructure Officer',
-  'open'
+  'projects'
 );
 
 insert into portfolio.profile_private (profile_id, phone)

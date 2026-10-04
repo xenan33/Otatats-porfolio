@@ -7,9 +7,11 @@ import { yearsSince } from './ui';
 // Same focus areas as the email signature.
 const FOCUS = ['Microsoft 365', 'Infrastructure', 'Cybersecurity', 'Automation & Development'];
 
-const AVAILABILITY: Record<string, string | null> = {
-  open: 'Open to work',
-  offers: 'Open to offers',
+// Badge text and the line beside it, per availability setting (admin → Profile).
+const AVAILABILITY: Record<string, { badge: string; note: (role: string | null) => string | null } | null> = {
+  open: { badge: 'Open to work', note: (role) => (role ? `Seeking ${role}` : null) },
+  projects: { badge: 'Open to projects', note: () => 'Taking on freelance and side projects' },
+  offers: { badge: 'Open to offers', note: (role) => (role ? `Interested in ${role}` : null) },
   closed: null,
 };
 
@@ -17,6 +19,7 @@ export default function Hero({ data, animated }: { data: PortfolioData; animated
   const { profile, experience, certifications } = data;
   if (!profile) return null;
   const availability = AVAILABILITY[profile.availability];
+  const note = availability?.note(profile.target_role);
   const current = experience.find((e) => e.current) ?? experience[0];
   const earliest = experience.reduce<string | null>((min, e) => (!min || e.start_date < min ? e.start_date : min), null);
   const years = earliest ? yearsSince(earliest) : 0;
@@ -33,13 +36,9 @@ export default function Hero({ data, animated }: { data: PortfolioData; animated
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
                 </span>
-                {availability}
+                {availability.badge}
               </span>
-              {profile.target_role && (
-                <span className="text-white/75">
-                  Seeking <span className="font-semibold text-white">{profile.target_role}</span>
-                </span>
-              )}
+              {note && <span className="text-white/80">{note}</span>}
             </div>
           )}
           <h1 className="mt-7 text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
