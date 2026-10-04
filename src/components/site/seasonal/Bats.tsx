@@ -1,4 +1,4 @@
-// A few bats drifting across the Halloween hero (CSS animation, off for reduced motion).
+// A few bats drifting across the page at Halloween (CSS animation, off for reduced motion).
 const BATS = [
   { top: '14%', delay: '0s', dur: '16s', size: 26 },
   { top: '30%', delay: '5s', dur: '20s', size: 18 },
@@ -7,7 +7,7 @@ const BATS = [
 
 export default function Bats() {
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden motion-reduce:hidden">
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-30 overflow-hidden motion-reduce:hidden">
       {BATS.map((b, i) => (
         <svg
           key={i}

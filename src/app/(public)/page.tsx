@@ -22,7 +22,7 @@ export default async function HomePage({ searchParams }: PageProps<'/'>) {
   await connection();
   const data = await getPortfolio();
   const phone = data.settings.show_phone ? await getPhone() : null;
-  // ?season=halloween|christmas|newyear previews a theme on any date.
+  // ?season=<name> (see SEASONS) previews a theme on any date.
   const preview = (await searchParams).season;
   const season = SEASONS.includes(preview as Season)
     ? (preview as Season)

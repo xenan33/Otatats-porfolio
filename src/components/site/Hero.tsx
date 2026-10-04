@@ -1,7 +1,7 @@
 import BlurText from '@/components/reactbits/BlurText';
 import CountUp from '@/components/reactbits/CountUp';
 import type { PortfolioData } from '@/lib/types';
-import { SEASON_THEME, type Season } from '@/lib/season';
+import { SEASON_THEME, seasonGreeting, type Season } from '@/lib/season';
 import HeroBackdrop from './HeroBackdrop';
 import HeroSeasonal from './seasonal/HeroSeasonal';
 import { yearsSince } from './ui';
@@ -43,7 +43,7 @@ export default function Hero({ data, animated, season }: { data: PortfolioData; 
               </span>
               {note && <span className="text-white/80">{note}</span>}
               {season && (
-                <span className="rounded-full border border-white/20 px-3 py-1 font-semibold text-white">{SEASON_THEME[season].greeting}</span>
+                <span className="rounded-full border border-white/20 px-3 py-1 font-semibold text-white">{seasonGreeting(season)}</span>
               )}
             </div>
           )}

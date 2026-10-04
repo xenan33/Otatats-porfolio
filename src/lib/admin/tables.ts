@@ -189,7 +189,7 @@ export const TABLES: Record<string, TableConfig> = {
         name: 'seasonal_themes',
         label: 'Seasonal themes',
         type: 'boolean',
-        help: 'Halloween in October, snow in December, fireworks from 31 Dec to 7 Jan (Philippine time).',
+        help: 'Holiday looks by date, Philippine time: New Year, Sinulog, Chinese New Year, Valentine\'s, Araw ng Kagitingan, Independence Day, SysAdmin Day, National Heroes Day, the September Christmas countdown, Halloween, Bonifacio Day and Christmas.',
       },
       {
         name: 'accent',
