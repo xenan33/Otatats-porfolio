@@ -20,7 +20,7 @@ insert into portfolio.skills (name, category, proficiency_label, sort_order) val
   ('Incident Response',        'Security Operations',     'Expert',     1),
   ('Threat & Vulnerability Management',      'Security Operations',     'Proficient', 2),
   ('Security Policy Enforcement',            'Security Operations',     'Proficient', 3),
-  ('EDR/XDR (Huntress, Bitdefender)',        'Security Operations',     'Expert',     4),
+  ('EDR/XDR (Huntress, Bitdefender)',        'Security Operations',     'Proficient', 4),
   ('Email Security (Proofpoint)',  'Security Operations',     'Expert',     5),
   ('Microsoft 365 Administration',                          'Identity & Cloud',  'Expert',     1),
   ('Microsoft Entra ID (Azure AD)',                    'Identity & Cloud',  'Expert',     2),
@@ -31,7 +31,10 @@ insert into portfolio.skills (name, category, proficiency_label, sort_order) val
   ('PowerShell',                             'Automation',        'Proficient', 1),
   ('Power Automate',                         'Automation',        'Proficient', 2),
   ('Team Leadership & Mentoring',               'Leadership',        'Proficient', 1),
-  ('Client Support & Escalations',            'Leadership',        'Expert',     2);
+  ('ConnectWise Manage (Ticketing)',         'Service Desk',      'Proficient', 1),
+  ('ConnectWise Automate (RMM)',             'Service Desk',      'Proficient', 2),
+  ('Client Support & Escalations',           'Service Desk',      'Expert',     3),
+  ('Technical Documentation',                'Service Desk',      'Proficient', 4);
 
 insert into portfolio.experience (company, title, location, description, start_date, end_date, current, sort_order) values
   ('Geidi IT Services', 'IT Support Team Lead', 'Cebu, Philippines',
