@@ -401,7 +401,60 @@ middleware.ts                    # admin guard + security headers
 
 ---
 
-## 12. Open items for the owner
+## 12. Hosting & deployment (Vercel)
+
+### 12.1 Setup
+| Item | Setting |
+|---|---|
+| Plan | **Hobby (free)**, which fits a personal, non-commercial portfolio. Move to Pro only if the site is ever used commercially or needs team access |
+| Source | Import `github.com/xenan33/Otatats-porfolio` into Vercel; framework preset **Next.js** (auto-detected) |
+| Production branch | `main`: every merge deploys to production |
+| Preview deploys | Every pull request / other branch gets its own preview URL, used to check changes before merging |
+| Function region | **`sin1` (Singapore)**, same region as the Supabase `shared-backend` project (ap-southeast-1), for the lowest database latency |
+| Node version | Latest LTS supported by Vercel (match `engines.node` in `package.json`) |
+
+### 12.2 Environment variables (Vercel → Project → Settings → Environment Variables)
+| Name | Environments | Notes |
+|---|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Production, Preview, Development | `https://hulggwtsktkoiaijzkhj.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Production, Preview, Development | Publishable key, safe in the browser |
+| `SUPABASE_SERVICE_ROLE_KEY` | **Production only** (mark **Sensitive**) | Server-only; never prefixed `NEXT_PUBLIC_`. Previews use the anon key + admin login instead |
+| `ADMIN_EMAIL` | Production, Preview | Owner allow-list for `/admin` |
+| `TURNSTILE_SECRET_KEY` / `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Production, Preview | Contact-form spam protection |
+| `RESEND_API_KEY` *(optional)* | Production (Sensitive) | Email notification on new contact messages |
+| `IP_HASH_SALT` | Production, Preview (Sensitive) | Salt for hashing contact-form IPs |
+
+Pull them locally with `vercel env pull .env.local`; `.env*` stays in `.gitignore`.
+
+### 12.3 Domain
+- Add the domain in Vercel → Project → Settings → Domains: `otatats.top` (plus `www.otatats.top` redirecting to it), or `portfolio.otatats.top` if the root is kept for something else.
+- At the DNS provider, create the records Vercel shows on that page (an `A` record for the root, a `CNAME` for subdomains). Leave the existing `codex.otatats.top` record untouched.
+- HTTPS certificates are issued and renewed automatically by Vercel.
+
+### 12.4 Supabase Auth with Vercel
+- In Supabase → Authentication → URL Configuration, set **Site URL** to the production domain and add redirect URLs for `https://<production-domain>/admin/**`, `https://*-xenan33s-projects.vercel.app/**` (previews; use the team slug Vercel shows) and `http://localhost:3000/**`.
+- These are additions to the shared-backend auth settings: keep every existing redirect URL that Codex uses.
+
+### 12.5 Security on Vercel
+- **Deployment Protection:** turn on Vercel Authentication for **preview** deployments so unfinished versions and preview admin pages aren't public.
+- Security headers (CSP, HSTS, etc., §10) set in `next.config.ts` / `middleware.ts` so they ship with every deploy; verify on the production URL with securityheaders.com.
+- **Vercel Firewall:** add a rate-limit rule on `/admin/login` and `/api/contact`, and enable Attack Challenge Mode if the site is ever targeted.
+- Sensitive env vars can't be read back from the dashboard once saved; rotate the Supabase service key if it is ever exposed.
+
+### 12.6 Monitoring
+- **Vercel Analytics** (privacy-friendly page views) and **Speed Insights** (real-user Core Web Vitals), both available on Hobby.
+- Deploy notifications through the Vercel GitHub integration (status checks on each PR).
+
+### 12.7 Release flow
+1. Work on a branch, open a PR → Vercel posts a preview URL on the PR.
+2. Check the preview (layout, admin login, Lighthouse).
+3. Merge to `main` → production deploy.
+4. Rollback if needed: Vercel → Deployments → previous deployment → **Instant Rollback**.
+5. Database migrations (`supabase/migrations/portfolio_*.sql`) are applied to `shared-backend` **before** merging code that depends on them.
+
+---
+
+## 13. Open items for the owner
 
 1. **Convergys and Atos dates:** both show Jul 2017 – Apr 2018 on the resume. Confirm the Convergys dates.
 2. **Employer for the SME and Engineer roles** (Mar 2025 – Oct 2025, Apr 2018 – Mar 2025) is not named. Confirm if it is Geidi IT Services.
@@ -410,10 +463,11 @@ middleware.ts                    # admin guard + security headers
 5. **Domain choice:** portfolio on `otatats.top` root or a subdomain.
 6. **Profile photo** and certification badge images / verify links.
 7. **Owner account:** sign in once on the portfolio admin so your auth user id can be added to `portfolio.admins` (if the one existing auth user is you, it can be reused).
+8. **Vercel account:** sign in to vercel.com with GitHub and confirm where `otatats.top` DNS is managed, so the domain records in §12.3 can be added.
 
 ---
 
-## 13. Milestones
+## 14. Milestones
 
 | # | Milestone | Done when |
 |---|---|---|
@@ -423,4 +477,4 @@ middleware.ts                    # admin guard + security headers
 | 4 | Admin CRUD | Profile, Skills, Experience, Certifications, Projects editable, ordering, visibility |
 | 5 | Settings & share links | §6.3 complete, recruiter links tracked |
 | 6 | Contact & hardening | Contact form, headers, security.txt, Lighthouse and security scan pass |
-| 7 | Launch | Custom domain, analytics, LinkedIn updated with the link |
+| 7 | Launch | Vercel production deploy on the custom domain (§12), analytics on, LinkedIn updated with the link |
