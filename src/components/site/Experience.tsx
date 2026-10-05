@@ -22,8 +22,8 @@ function byCompany(roles: Role[]): Company[] {
 function CompanyMark({ company }: { company: Company }) {
   if (company.logo) {
     return (
-      <div className="mb-4 flex h-14 w-14 items-center justify-center overflow-hidden rounded-xl border border-line bg-white p-2 shadow-sm">
-        <Image src={company.logo} alt={`${company.name} logo`} width={48} height={48} unoptimized className="h-full w-full object-contain" />
+      <div className="mb-4 inline-flex h-14 items-center rounded-xl border border-line bg-white px-3 shadow-sm">
+        <Image src={company.logo} alt={`${company.name} logo`} width={144} height={40} unoptimized className="h-9 w-auto max-w-36 rounded-md object-contain" />
       </div>
     );
   }
