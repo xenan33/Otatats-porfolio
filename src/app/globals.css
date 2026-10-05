@@ -148,3 +148,21 @@ h1, h2, h3 {
     radial-gradient(50% 60% at 100% 100%, color-mix(in srgb, var(--glow, var(--accent)) 10%, transparent), transparent),
     var(--surface);
 }
+
+/* Skill rows light up in the accent (or holiday) colour on hover. */
+.skill {
+  transition: background-color 0.2s, box-shadow 0.25s, transform 0.2s;
+}
+.skill:hover {
+  background-color: color-mix(in srgb, var(--accent) 12%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent),
+    0 0 24px -4px color-mix(in srgb, var(--glow, var(--accent)) 70%, transparent);
+  transform: translateX(2px);
+}
+.skill:hover > span + span {
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .skill:hover { transform: none; }
+}

@@ -110,6 +110,7 @@ export const TABLES: Record<string, TableConfig> = {
       { name: 'title', label: 'Job title', type: 'text', required: true },
       { name: 'company', label: 'Company', type: 'text', required: true },
       { name: 'location', label: 'Location', type: 'text' },
+      { name: 'logo_url', label: 'Company logo URL', type: 'url', help: 'Upload on the dashboard, then paste the link here. One role per company is enough.' },
       { name: 'start_date', label: 'Start date', type: 'date', required: true },
       { name: 'end_date', label: 'End date', type: 'date', help: 'Leave empty for a current role.' },
       { name: 'current', label: 'Current role', type: 'boolean' },

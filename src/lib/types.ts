@@ -21,6 +21,7 @@ export type Experience = {
   company: string;
   title: string;
   location: string | null;
+  logo_url: string | null;
   description: string | null;
   start_date: string;
   end_date: string | null;

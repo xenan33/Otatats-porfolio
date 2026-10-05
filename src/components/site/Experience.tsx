@@ -1,7 +1,8 @@
+import Image from 'next/image';
 import type { Experience as Role } from '@/lib/types';
 import { Bullets, Section, formatMonth } from './ui';
 
-type Company = { name: string; location: string | null; roles: Role[] };
+type Company = { name: string; location: string | null; logo: string | null; roles: Role[] };
 
 // Roles grouped by employer, so progression inside one company reads as one story.
 function byCompany(roles: Role[]): Company[] {
@@ -9,10 +10,31 @@ function byCompany(roles: Role[]): Company[] {
   const out: Company[] = [];
   for (const r of sorted) {
     const found = out.find((c) => c.name === r.company);
-    if (found) found.roles.push(r);
-    else out.push({ name: r.company, location: r.location, roles: [r] });
+    if (found) {
+      found.roles.push(r);
+      found.logo ??= r.logo_url;
+    } else out.push({ name: r.company, location: r.location, logo: r.logo_url, roles: [r] });
   }
   return out;
+}
+
+// Company logo on a white tile, or a neutral briefcase when there is none (e.g. an anonymised employer).
+function CompanyMark({ company }: { company: Company }) {
+  if (company.logo) {
+    return (
+      <div className="mb-4 flex h-14 w-14 items-center justify-center overflow-hidden rounded-xl border border-line bg-white p-2 shadow-sm">
+        <Image src={company.logo} alt={`${company.name} logo`} width={48} height={48} unoptimized className="h-full w-full object-contain" />
+      </div>
+    );
+  }
+  return (
+    <div aria-hidden="true" className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl border border-line bg-surface-2 text-accent-text">
+      <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="7" width="18" height="13" rx="2" />
+        <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18" />
+      </svg>
+    </div>
+  );
 }
 
 function span(roles: Role[]) {
@@ -31,6 +53,7 @@ export default function Experience({ roles }: { roles: Role[] }) {
         {companies.map((c) => (
           <article key={c.name} className="grid gap-6 tile rounded-2xl border p-6 sm:p-8 lg:grid-cols-[240px_1fr] lg:gap-10">
             <header>
+              <CompanyMark company={c} />
               <h3 className="font-display text-xl font-semibold text-ink">{c.name}</h3>
               {c.location && <p className="mt-1 text-sm text-muted">{c.location}</p>}
               <p className="mt-3 inline-flex rounded-full bg-surface-2 px-3 py-1 font-mono text-xs text-accent-2">{span(c.roles)}</p>

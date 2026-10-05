@@ -30,10 +30,10 @@ export default function Skills({ skills, accent }: { skills: Skill[]; accent: st
               className="tile !rounded-2xl !p-6"
             >
               <h3 className="font-display text-lg font-semibold text-ink">{category}</h3>
-              <ul className="mt-4 divide-y divide-line">
+              <ul className="-mx-2 mt-4 space-y-0.5">
                 {items.map((s) => (
-                  <li key={s.id} className="flex items-center justify-between gap-3 py-2.5 text-[15px]">
-                    <span className="text-ink/85">{s.name}</span>
+                  <li key={s.id} className="skill group flex items-center justify-between gap-3 rounded-lg px-2 py-2.5 text-[15px]">
+                    <span className="text-ink/85 transition-colors group-hover:text-accent-text">{s.name}</span>
                     {s.proficiency_label && (
                       <span
                         className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold ${
