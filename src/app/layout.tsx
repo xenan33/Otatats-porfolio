@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import { IBM_Plex_Mono, IBM_Plex_Sans, Sora } from 'next/font/google';
 import { SITE_URL } from '@/lib/env';
 import './globals.css';
@@ -20,7 +21,10 @@ export const viewport: Viewport = { colorScheme: 'light dark', themeColor: '#071
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="en" className={`${sora.variable} ${plex.variable} ${plexMono.variable} h-full antialiased`}>
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
