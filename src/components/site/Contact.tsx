@@ -27,7 +27,7 @@ export default function Contact({ data, phone }: { data: PortfolioData; phone: s
             {links.map((l) => (
               <div key={l.label}>
                 <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-white/50">{l.label}</dt>
-                <dd className="mt-1">
+                <dd className="mt-1" data-allow-copy>
                   <a
                     href={l.href}
                     {...(l.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}

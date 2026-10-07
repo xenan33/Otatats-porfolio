@@ -7,6 +7,8 @@ import { createServiceClient } from '@/lib/supabase/service';
 export type ContactResult = { ok: boolean; message: string };
 
 const MAX_PER_HOUR = 3;
+// Ceiling across all senders, so a botnet rotating IPs can't flood the inbox or the shared database.
+const MAX_TOTAL_PER_HOUR = 30;
 
 export async function sendContactMessage(_prev: ContactResult | null, form: FormData): Promise<ContactResult> {
   // Honeypot: real visitors never see or fill this field.
@@ -36,6 +38,14 @@ export async function sendContactMessage(_prev: ContactResult | null, form: Form
     .eq('ip_hash', ipHash)
     .gte('created_at', since);
   if ((count ?? 0) >= MAX_PER_HOUR) return { ok: false, message: 'Too many messages. Please try again later.' };
+
+  const { count: total } = await db
+    .from('contact_messages')
+    .select('id', { count: 'exact', head: true })
+    .gte('created_at', since);
+  if ((total ?? 0) >= MAX_TOTAL_PER_HOUR) {
+    return { ok: false, message: 'The contact form is busy right now. Please use email or LinkedIn instead.' };
+  }
 
   const { error } = await db
     .from('contact_messages')

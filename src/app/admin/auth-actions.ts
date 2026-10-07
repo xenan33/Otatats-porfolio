@@ -1,6 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
+import { getAdminState } from '@/lib/admin/auth';
 import { SITE_URL } from '@/lib/env';
 import { createSessionClient } from '@/lib/supabase/server';
 
@@ -19,8 +20,17 @@ export async function sendMagicLink(_prev: AuthResult | null, form: FormData): P
   return { ok: true, message: 'If that email belongs to the site owner, a sign-in link is on its way.' };
 }
 
+// Server actions can be called directly, so the MFA steps check for themselves
+// that the visitor is a portfolio admin. The login pool is shared with Codex, and
+// a Codex user must not be able to change their own sign-in factors from here.
+async function adminAwaitingMfa() {
+  const { state, supabase } = await getAdminState();
+  return state === 'needs-mfa' ? supabase : null;
+}
+
 export async function startTotpEnrollment(): Promise<AuthResult> {
-  const supabase = await createSessionClient();
+  const supabase = await adminAwaitingMfa();
+  if (!supabase) return { ok: false, message: 'Sign in first.' };
   const { data: factors } = await supabase.auth.mfa.listFactors();
   // Clear abandoned, unverified enrollments so a fresh QR code can be issued.
   for (const f of factors?.all ?? []) {
@@ -35,7 +45,8 @@ export async function verifyTotp(_prev: AuthResult | null, form: FormData): Prom
   const code = String(form.get('code') ?? '').replace(/\s/g, '');
   const factorId = String(form.get('factorId') ?? '');
   if (!/^\d{6}$/.test(code)) return { ok: false, message: 'Enter the 6-digit code from your authenticator app.', factorId };
-  const supabase = await createSessionClient();
+  const supabase = await adminAwaitingMfa();
+  if (!supabase) return { ok: false, message: 'Sign in first.' };
   const { error } = await supabase.auth.mfa.challengeAndVerify({ factorId, code });
   if (error) return { ok: false, message: 'That code did not work. Try the next one.', factorId };
   redirect('/admin');
