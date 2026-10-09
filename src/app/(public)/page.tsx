@@ -11,7 +11,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = settings.seo_title ?? (profile ? `${profile.name} · ${profile.headline ?? 'Portfolio'}` : 'Portfolio');
   const description = settings.seo_description ?? profile?.bio?.slice(0, 160) ?? undefined;
   return {
-    title: { absolute: title },
+    // The browser tab shows just the owner's name; link previews keep the fuller search title.
+    title: { absolute: profile?.name ?? title },
     description,
     openGraph: { title, description, type: 'profile', images: settings.og_image_url ? [settings.og_image_url] : undefined },
   };
